@@ -3,10 +3,10 @@ import Visualisation from '../Visualisation/Visualisation';
 import './App.css';
 
 function App() {
-  return (
+    return (
     <div className="App">
       <header className="App-header">
-        <Visualisation/>
+              <Visualisation/>
       </header>
       </div>
   );

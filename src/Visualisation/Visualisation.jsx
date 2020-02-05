@@ -1,43 +1,37 @@
 import React from 'react';
-import * as d3 from "d3";
-import * as topojson from "topojson";
-
+import * as mapboxgl from "mapbox-gl"
+import InstitutionData from "../InstitutionData/InstitutionData";
 
  class Visualisation extends React.Component {
 
-     helloWorld() {
-         d3.select(this.refs.karte).append("p").text("Hello World");
-     }
+     async mapTest() {
+         function getLL(d) {
+             return new mapboxgl.LngLat(+d.lng, +d.lat)
+         }
 
-     mapTest() {
-         let width = 960,
-             height = 500;
+         mapboxgl.accessToken = 'pk.eyJ1IjoiZW5qYWxvdCIsImEiOiJjaWhtdmxhNTIwb25zdHBsejk0NGdhODJhIn0.2-F2hS_oTZenAWc0BMf_uw'
+         let map = new mapboxgl.Map({
+             container: 'map', // container id
+             style: 'mapbox://styles/enjalot/cihmvv7kg004v91kn22zjptsc',
+             center: [-10,30],
+             zoom: 2,
+         })
+         map.scrollZoom.enable()
+         map.NavigationControl = new mapboxgl.NavigationControl()
 
-         let projection = d3.geoMercator()
-             .center([0, 5 ])
-             .scale(150)
-             .rotate([-180,0]);
+         let x = await new InstitutionData().getData()
+         console.log(x)
+         //let nav = new mapboxgl.NavigationControl();
+         //map.addControl(nav, 'top-left');
 
+         //let container = map.getCanvasContainer()
+
+         /*
          let svg = d3.select(this.refs.karte).append("svg")
-             .attr("width", width)
-             .attr("height", height);
-
-         let path = d3.geoPath()
-             .projection(projection);
-
-         let g = svg.append("g");
-
-         d3.json("world.json").then(function(topology) {
-
-             g.selectAll("path")
-                 .data(topojson.feature(topology, topology.objects.countries).features)
-                 .enter().append("path")
-                 .attr("d", path)
-                 .attr("stroke", "white")
-                 .attr("stroke-width", "0.25px")
-                 .attr("fill", "grey")
-
-         });
+             .attr('height','800px')
+             .attr('width','1400px')
+             .attr('id','D3svg')
+        */
      }
 
      componentDidMount() {
@@ -46,8 +40,13 @@ import * as topojson from "topojson";
 
      render() {
         return (
-            <div ref="karte">
-
+            <div id="map" ref="karte" style={{
+                position: 'absolute',
+                top: 0,
+                bottom: 0,
+                width: '1400px',
+                height: '800px',
+            }}>
             </div>
         );
     }
