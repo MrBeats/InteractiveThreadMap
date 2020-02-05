@@ -5,7 +5,11 @@ import * as d3 from 'd3';
 class InstitutionData extends React.Component {
     async getData() {
         let text = await this.fetchCsv()
-        return d3.csvParseRows(text)
+        let instData = d3.csvParseRows(text)
+        let filtered = instData.filter(function(institution) {
+            return institution[2] !== "";
+        })
+        return filtered
     }
 
     fetchCsv() {
