@@ -8,7 +8,7 @@ import './Visualisation.css'
 
  class Visualisation extends React.Component {
 
-     async mapTest(csvData) {
+     mapTest(csvData) {
          //DatenCheck
          const InstitutionData = csvData.filter(institution => institution.Latitude !== "failed" && institution.Longitude !== "failed")
          console.log("Daten sind da:")
@@ -30,12 +30,16 @@ import './Visualisation.css'
          map.addControl(nav, 'top-left');
          let container = map.getCanvasContainer()
 
+         let d3Data = InstitutionData.filter(function(d){let coord =  project([d.Longitude,d.Latitude]); return ((coord.x <= 1400 && coord.x >= 0) && (coord.y <= 800 && coord.x >= 0))})
          //D3 SVG erstellen
          let svg = d3.select(container).append("svg")
 
+         let div = d3.select("body").append("div")
+             .attr("class", "tooltip")
+             .style("opacity", 0);
 
          let circle = svg.selectAll("circle")
-             .data(InstitutionData)
+             .data(d3Data)
              .enter()
              .append("circle")
              .attr("r", 4)
@@ -44,11 +48,45 @@ import './Visualisation.css'
              .attr("fill", "red")
              .attr("opacity", 0.7)
 
+             .on("mouseover", function(d) {
+                 div.transition()
+                     .duration(200)
+                     .style("opacity", .9);
+                 div.html(d.name + "<br/><br/>"  + d.Adresse)
+                     .style("left", (d3.event.pageX) + "px")
+                     .style("top", (d3.event.pageY - 28) + "px");
+             })
+             .on("mouseout", function(d) {
+                 div.transition()
+                     .duration(500)
+                     .style("opacity", 0);
+             })
+
+
          function update() {
+             d3Data = InstitutionData.filter(function(d){let coord =  project([d.Longitude,d.Latitude]); return ((coord.x <= 1400 && coord.x >= 0) && (coord.y <= 800 && coord.x >= 0))})
+
+             //console.log(d3Data.length)
+
+             //console.log(circle)
+             //console.log(circle.exit())
+             //console.log(circle.enter())
+
+             circle
+                 .exit().remove()
+             circle
+                 .enter()
+                 .append("circle")
+                 .attr("r", 4)
+                 .attr("stroke", "black")
+                 .attr("stroke-width", 2)
+                 .attr("fill", "red")
+                 .attr("opacity", 0.7)
              circle
                  .attr("cx", function(d) { return project([d.Longitude,d.Latitude]).x; })
                  .attr("cy", function(d) { return project([d.Longitude,d.Latitude]).y; })
          }
+
          function project(d) {
              //console.log("KEKSE")
              //console.log(d)
