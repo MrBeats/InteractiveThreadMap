@@ -58,13 +58,10 @@ import './Visualisation.css'
      updateInstitutions(csvData,map,svg,div) {
          let d3Data = csvData.filter(function(d){let coord =  projectOnMap([d.Longitude,d.Latitude]); return ((coord.x <= 1400 && coord.x >= 0) && (coord.y <= 800 && coord.x >= 0))})
 
-         svg.selectAll("circle")
+         let circles = svg.selectAll("circle")
              .data(d3Data)
-             .exit()
-             .remove()
 
-         svg.selectAll("circle")
-             .data(d3Data)
+         circles
              .enter()
              .append("circle")
              .attr("r", 4)
@@ -85,10 +82,14 @@ import './Visualisation.css'
                      .duration(500)
                      .style("opacity", 0);
              })
+         circles
+             .exit()
+             .remove()
 
-         svg.selectAll("circle")
+         circles
              .attr("cx", function(d) { return projectOnMap([d.Longitude,d.Latitude]).x; })
              .attr("cy", function(d) { return projectOnMap([d.Longitude,d.Latitude]).y; })
+
 
          function projectOnMap(d) {
              const lon = parseFloat(d[0].replace(/,/g, '.'));
