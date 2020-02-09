@@ -3,6 +3,7 @@ import * as mapboxgl from "mapbox-gl"
 import InstitutionData from "../InstitutionData/InstitutionData"
 import extData from '../InstitutionData/InstitutionData_Ext.csv'
 import * as d3 from "d3"
+import 'mapbox-gl/dist/mapbox-gl.css'
 
  class Visualisation extends React.Component {
 
