@@ -4,6 +4,7 @@ import InstitutionData from "../InstitutionData/InstitutionData"
 import extData from '../InstitutionData/InstitutionData_Ext.csv'
 import * as d3 from "d3"
 import 'mapbox-gl/dist/mapbox-gl.css'
+import './Visualisation.css'
 
  class Visualisation extends React.Component {
 
@@ -30,11 +31,7 @@ import 'mapbox-gl/dist/mapbox-gl.css'
          let container = map.getCanvasContainer()
 
          //D3 SVG erstellen
-         let svg = d3.select(container)
-             .append("svg")
-             .attr('height','800px')
-             .attr('width','1400px')
-             .attr('position','absolute')
+         let svg = d3.select(container).append("svg")
 
 
          let circle = svg.selectAll("circle")
