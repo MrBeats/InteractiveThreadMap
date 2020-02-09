@@ -24,8 +24,6 @@ import './Visualisation.css'
 
      async createMap() {
         let InstitutionData = await this.readInstitutionData()
-        console.log(InstitutionData)
-        console.log(this.readInstitutionData())
         //Karte erstellen
         mapboxgl.accessToken = 'pk.eyJ1IjoiZW5qYWxvdCIsImEiOiJjaWhtdmxhNTIwb25zdHBsejk0NGdhODJhIn0.2-F2hS_oTZenAWc0BMf_uw'
         let map = new mapboxgl.Map({
@@ -51,11 +49,11 @@ import './Visualisation.css'
         map.on("viewreset", () => this.updateInstitutions(InstitutionData,map,svg,div))
         map.on("move", () => this.updateInstitutions(InstitutionData,map,svg,div))
 
-        console.log(InstitutionData)
         this.updateInstitutions(InstitutionData,map,svg,div)
     }
 
      updateInstitutions(csvData,map,svg,div) {
+
          let d3Data = csvData.filter(function(d){let coord =  projectOnMap([d.Longitude,d.Latitude]); return ((coord.x <= 1400 && coord.x >= 0) && (coord.y <= 800 && coord.x >= 0))})
 
          let circles = svg.selectAll("circle")
@@ -69,6 +67,8 @@ import './Visualisation.css'
              .attr("stroke-width", 2)
              .attr("fill", "red")
              .attr("opacity", 0.7)
+             .attr("cx", function(d) { return projectOnMap([d.Longitude,d.Latitude]).x; })
+             .attr("cy", function(d) { return projectOnMap([d.Longitude,d.Latitude]).y; })
              .on("mouseover", function(d) {
                  div.transition()
                      .duration(200)
@@ -82,6 +82,7 @@ import './Visualisation.css'
                      .duration(500)
                      .style("opacity", 0);
              })
+
          circles
              .exit()
              .remove()
