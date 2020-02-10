@@ -47,33 +47,40 @@ import * as Terror from '../Terror/Terror'
          console.log(TerrorData)
 
          // Create Institution Canvas ---------------------------------------------------------------------------------
-         let canvas = d3.select(container).append("canvas")
+         let InstitutionCanvas = d3.select(container).append("canvas")
              .attr('width', 1400)
              .attr('height', 800)
-         let context = canvas.node().getContext('2d')
+         let InstitutionContext = InstitutionCanvas.node().getContext('2d')
 
          let div = d3.select("body").append("div")
              .attr("class", "tooltip")
              .style("opacity", 0)
 
-         map.on("viewreset", () => Institutions.updateInstitutions(InstitutionData,map,div,context))
-         map.on("move", () => Institutions.updateInstitutions(InstitutionData,map,div,context))
+         map.on("viewreset", () => Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext))
+         map.on("move", () => Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext))
 
          // Create Fire Canvas ----------------------------------------------------------------------------------------
-         let svgFire = d3.select(container).append("svg")
-         // map.on("viewreset", () => Fire.updateFire(FireData,map,svgFire,div))
-         //map.on("move", () => Fire.updateFire(FireData,map,svgFire,div))
+         let FireCanvas = d3.select(container).append("canvas")
+             .attr('width', 1400)
+             .attr('height', 800)
+         let FireContext = FireCanvas.node().getContext('2d')
 
-         // Create Fire Canvas ----------------------------------------------------------------------------------------
-         let svgTerror = d3.select(container).append("svg")
-         //map.on("viewreset", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
-         //map.on("move", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
+         map.on("viewreset", () => Fire.updateFire(FireData,map,div,FireContext))
+         map.on("move", () => Fire.updateFire(FireData,map,div,FireContext))
 
+         // Create Terror Canvas --------------------------------------------------------------------------------------
+         let TerrorCanvas = d3.select(container).append("canvas")
+             .attr('width', 1400)
+             .attr('height', 800)
+         let TerrorContext = TerrorCanvas.node().getContext('2d')
+
+         map.on("viewreset", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
+         map.on("move", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
 
          // Do First Data Update --------------------------------------------------------------------------------------
-         //Fire.updateFire(FireData,map,svgFire,div)
-         //Terror.updateTerror(TerrorData,map,svgTerror,div)
-         Institutions.updateInstitutions(InstitutionData,map,div,context)
+         Fire.updateFire(FireData,map,div,FireContext)
+         Terror.updateTerror(TerrorData,map,div,TerrorContext)
+         Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext)
     }
 
      render() {

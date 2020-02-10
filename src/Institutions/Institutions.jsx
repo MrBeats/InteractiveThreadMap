@@ -10,7 +10,6 @@ export async function readInstitutionData() {
 }
 
 export function updateInstitutions(csvData,map,div,context) {
-
     let d3Data = csvData.filter(function(d){let coord =  projectOnMap([d.Longitude,d.Latitude]); return ((coord.x <= 1400 && coord.x >= 0) && (coord.y <= 800 && coord.x >= 0))})
 
     let customBase = document.createElement('custom')
@@ -55,7 +54,7 @@ export function updateInstitutions(csvData,map,div,context) {
     let elements = custom.selectAll('circle')
     elements.each(function(d,i) {
         let node = d3.select(this)
-        context.fillStyle = 'red'
+        context.fillStyle = 'black'
         context.beginPath();
         context.arc(node.attr('cx'), node.attr('cy'), 2, 0, 2 * Math.PI)
         context.fill();
