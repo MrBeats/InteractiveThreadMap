@@ -57,29 +57,35 @@ import './Visualisation.css'
         let container = map.getCanvasContainer()
 
         //Create D3 entryPoints
-        let svg = d3.select(container).append("svg")
         let svgFire = d3.select(container).append("svg")
         let svgTerror = d3.select(container).append("svg")
+        let canvas = d3.select(container).append("canvas")
+            .attr('width', 1400)
+            .attr('height', 800)
+        let context = canvas.node().getContext('2d')
 
         let div = d3.select("body").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0)
 
-        map.on("viewreset", () => this.updateInstitutions(InstitutionData,map,svg,div))
-        map.on("move", () => this.updateInstitutions(InstitutionData,map,svg,div))
+        map.on("viewreset", () => this.updateInstitutions(InstitutionData,map,div,context))
+        map.on("move", () => this.updateInstitutions(InstitutionData,map,div,context))
 
-        this.updateInstitutions(InstitutionData,map,svg,div)
         //this.updateFire(FireData,map,svgFire,div)
         //this.updateTerror(TerrorData,map,svgTerror,div)
 
 
+        this.updateInstitutions(InstitutionData,map,div,context)
     }
 
-     updateInstitutions(csvData,map,svg,div) {
+     updateInstitutions(csvData,map,div,context) {
 
          let d3Data = csvData.filter(function(d){let coord =  projectOnMap([d.Longitude,d.Latitude]); return ((coord.x <= 1400 && coord.x >= 0) && (coord.y <= 800 && coord.x >= 0))})
 
-         let circles = svg.selectAll("circle")
+         let customBase = document.createElement('custom')
+         let custom = d3.select(customBase)
+
+         let circles = custom.selectAll("custom.circle")
              .data(d3Data)
 
          circles
@@ -113,7 +119,16 @@ import './Visualisation.css'
          circles
              .attr("cx", function(d) { return projectOnMap([d.Longitude,d.Latitude]).x; })
              .attr("cy", function(d) { return projectOnMap([d.Longitude,d.Latitude]).y; })
-
+         // Draw on Canvas
+         context.clearRect(0, 0, 1400, 800)
+         let elements = custom.selectAll('circle')
+         elements.each(function(d,i) {
+             let node = d3.select(this)
+             context.fillStyle = 'red'
+             context.beginPath();
+             context.arc(node.attr('cx'), node.attr('cy'), 2, 0, 2 * Math.PI)
+             context.fill();
+         })
 
          function projectOnMap(d) {
              const lon = parseFloat(d[0].replace(/,/g, '.'));
@@ -140,7 +155,7 @@ import './Visualisation.css'
             .attr("opacity", 0.7)
             .attr("cx", function(d) { return projectOnMap([d.longitude,d.latitude]).x; })
             .attr("cy", function(d) { return projectOnMap([d.longitude,d.latitude]).y; })
-            
+
 
         circles
             .exit()
@@ -175,7 +190,7 @@ import './Visualisation.css'
             .attr("opacity", 0.7)
             .attr("cx", function(d) { return projectOnMap([d.longitude,d.latitude]).x; })
             .attr("cy", function(d) { return projectOnMap([d.longitude,d.latitude]).y; })
-            
+
 
         circles
             .exit()
