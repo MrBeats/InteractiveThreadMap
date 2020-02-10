@@ -1,11 +1,15 @@
 import React from 'react'
 import * as mapboxgl from "mapbox-gl"
-import extData from './InstitutionData_Ext.csv'
-import fireData from '../data/Feuer.csv'
-import terrorData from '../data/globalterrorismdb_0919dist.csv'
+import extData from '../Institutions/InstitutionData_Ext.csv'
+import fireData from '../FireData/Feuer.csv'
+import terrorData from '../Terror/globalterrorismdb_0919dist.csv'
 import * as d3 from "d3"
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './Visualisation.css'
+
+import * as Institutions from '../Institutions/Institutions'
+import * as Fire from '../FireData/Fire'
+import * as Terror from '../Terror/Terror'
 
  class Visualisation extends React.Component {
 
@@ -15,198 +19,61 @@ import './Visualisation.css'
      }
 
      componentDidMount() {
-         d3.dsv(";", extData).then(this.createMap)
+         this.createMap()
      }
-
-     async readInstitutionData() {
-         return await d3.dsv(";", extData).then(function(data){
-             return data.filter(institution => institution.Latitude !== "failed" && institution.Longitude !== "failed")
-         })
-     }
-
-     async readFireData() {
-        return await d3.dsv(",", fireData)
-    }
-
-    async readTerrorData() {
-        return await d3.dsv(";", terrorData).then(function(data){
-            return data.filter(attacks => attacks.latitude !== "" && attacks.longitude !== "")
-        })
-    }
 
      async createMap() {
-        let InstitutionData = await this.readInstitutionData()
-        let FireData = await this.readFireData()
-        let TerrorData = await this.readTerrorData()
-        console.log(InstitutionData)
-        console.log(FireData)
-        console.log(TerrorData)
-        //Karte erstellen
-        mapboxgl.accessToken = 'pk.eyJ1IjoiZW5qYWxvdCIsImEiOiJjaWhtdmxhNTIwb25zdHBsejk0NGdhODJhIn0.2-F2hS_oTZenAWc0BMf_uw'
-        let map = new mapboxgl.Map({
-            container: 'map', // container id
-            style: 'mapbox://styles/enjalot/cihmvv7kg004v91kn22zjptsc',
-            center: [-10, 30],
-            zoom: 2,
-        })
-        map.scrollZoom.enable()
-        map.NavigationControl = new mapboxgl.NavigationControl()
-
-        let nav = new mapboxgl.NavigationControl();
-        map.addControl(nav, 'top-left');
-        let container = map.getCanvasContainer()
-
-        //Create D3 entryPoints
-        let svgFire = d3.select(container).append("svg")
-        let svgTerror = d3.select(container).append("svg")
-        let canvas = d3.select(container).append("canvas")
-            .attr('width', 1400)
-            .attr('height', 800)
-        let context = canvas.node().getContext('2d')
-
-        let div = d3.select("body").append("div")
-            .attr("class", "tooltip")
-            .style("opacity", 0)
-
-        map.on("viewreset", () => this.updateInstitutions(InstitutionData,map,div,context))
-        map.on("move", () => this.updateInstitutions(InstitutionData,map,div,context))
-
-        //this.updateFire(FireData,map,svgFire,div)
-        //this.updateTerror(TerrorData,map,svgTerror,div)
-
-
-        this.updateInstitutions(InstitutionData,map,div,context)
-    }
-
-     updateInstitutions(csvData,map,div,context) {
-
-         let d3Data = csvData.filter(function(d){let coord =  projectOnMap([d.Longitude,d.Latitude]); return ((coord.x <= 1400 && coord.x >= 0) && (coord.y <= 800 && coord.x >= 0))})
-
-         let customBase = document.createElement('custom')
-         let custom = d3.select(customBase)
-
-         let circles = custom.selectAll("custom.circle")
-             .data(d3Data)
-
-         circles
-             .enter()
-             .append("circle")
-             .attr("r", 4)
-             .attr("stroke", "black")
-             .attr("stroke-width", 2)
-             .attr("fill", "red")
-             .attr("opacity", 0.7)
-             .attr("cx", function(d) { return projectOnMap([d.Longitude,d.Latitude]).x; })
-             .attr("cy", function(d) { return projectOnMap([d.Longitude,d.Latitude]).y; })
-             .on("mouseover", function(d) {
-                 div.transition()
-                     .duration(200)
-                     .style("opacity", .9);
-                 div.html(d.name + "<br/><br/>"  + d.Adresse)
-                     .style("left", (d3.event.pageX) + "px")
-                     .style("top", (d3.event.pageY - 28) + "px");
-             })
-             .on("mouseout", function(d) {
-                 div.transition()
-                     .duration(500)
-                     .style("opacity", 0);
-             })
-
-         circles
-             .exit()
-             .remove()
-
-         circles
-             .attr("cx", function(d) { return projectOnMap([d.Longitude,d.Latitude]).x; })
-             .attr("cy", function(d) { return projectOnMap([d.Longitude,d.Latitude]).y; })
-         // Draw on Canvas
-         context.clearRect(0, 0, 1400, 800)
-         let elements = custom.selectAll('circle')
-         elements.each(function(d,i) {
-             let node = d3.select(this)
-             context.fillStyle = 'red'
-             context.beginPath();
-             context.arc(node.attr('cx'), node.attr('cy'), 2, 0, 2 * Math.PI)
-             context.fill();
+         // Karte erstellen -------------------------------------------------------------------------------------------
+         mapboxgl.accessToken = 'pk.eyJ1IjoiZW5qYWxvdCIsImEiOiJjaWhtdmxhNTIwb25zdHBsejk0NGdhODJhIn0.2-F2hS_oTZenAWc0BMf_uw'
+         let map = new mapboxgl.Map({
+             container: 'map', // container id
+             style: 'mapbox://styles/enjalot/cihmvv7kg004v91kn22zjptsc',
+             center: [-10, 30],
+             zoom: 2,
          })
+         map.scrollZoom.enable()
+         map.NavigationControl = new mapboxgl.NavigationControl()
 
-         function projectOnMap(d) {
-             const lon = parseFloat(d[0].replace(/,/g, '.'));
-             const lat = parseFloat(d[1].replace(/,/g, '.'));
+         let nav = new mapboxgl.NavigationControl();
+         map.addControl(nav, 'top-left');
+         let container = map.getCanvasContainer()
 
-             return map.project(new mapboxgl.LngLat(lon, lat));
-         }
-     }
+         // Aquire Data -----------------------------------------------------------------------------------------------
+         let InstitutionData = await Institutions.readInstitutionData()
+         let FireData = await Fire.readFireData()
+         let TerrorData = await Terror.readTerrorData()
+         console.log(InstitutionData)
+         console.log(FireData)
+         console.log(TerrorData)
 
-     updateFire(csvData,map,svg,div) {
+         // Create Institution Canvas ---------------------------------------------------------------------------------
+         let canvas = d3.select(container).append("canvas")
+             .attr('width', 1400)
+             .attr('height', 800)
+         let context = canvas.node().getContext('2d')
 
-        let d3Data = csvData.filter(function(d){let coord =  projectOnMap([d.longitude,d.latitude]); return ((coord.x <= 1400 && coord.x >= 0) && (coord.y <= 800 && coord.x >= 0))})
+         let div = d3.select("body").append("div")
+             .attr("class", "tooltip")
+             .style("opacity", 0)
 
-        let circles = svg.selectAll("circle")
-            .data(d3Data)
+         map.on("viewreset", () => Institutions.updateInstitutions(InstitutionData,map,div,context))
+         map.on("move", () => Institutions.updateInstitutions(InstitutionData,map,div,context))
 
-        circles
-            .enter()
-            .append("circle")
-            .attr("r", 2)
-            .attr("stroke", "black")
-            .attr("stroke-width", 1)
-            .attr("fill", "black")
-            .attr("opacity", 0.7)
-            .attr("cx", function(d) { return projectOnMap([d.longitude,d.latitude]).x; })
-            .attr("cy", function(d) { return projectOnMap([d.longitude,d.latitude]).y; })
+         // Create Fire Canvas ----------------------------------------------------------------------------------------
+         let svgFire = d3.select(container).append("svg")
+         // map.on("viewreset", () => Fire.updateFire(FireData,map,svgFire,div))
+         //map.on("move", () => Fire.updateFire(FireData,map,svgFire,div))
 
-
-        circles
-            .exit()
-            .remove()
-
-        circles
-            .attr("cx", function(d) { return projectOnMap([d.longitude,d.latitude]).x; })
-            .attr("cy", function(d) { return projectOnMap([d.longitude,d.latitude]).y; })
-
-
-        function projectOnMap(d) {
-            const lon = parseFloat(d[0]);
-            const lat = parseFloat(d[1]);
-
-            return map.project(new mapboxgl.LngLat(lon, lat));
-        }
-    }
-
-    updateTerror(csvData,map,svg,div) {
-        let d3Data = csvData.filter(function(d){ let coord =  projectOnMap([d.longitude,d.latitude]); return ((coord.x <= 1400 && coord.x >= 0) && (coord.y <= 800 && coord.x >= 0))})
-
-        let circles = svg.selectAll("circle")
-            .data(d3Data)
-
-        circles
-            .enter()
-            .append("circle")
-            .attr("r", 2)
-            .attr("stroke", "black")
-            .attr("stroke-width", 1)
-            .attr("fill", "black")
-            .attr("opacity", 0.7)
-            .attr("cx", function(d) { return projectOnMap([d.longitude,d.latitude]).x; })
-            .attr("cy", function(d) { return projectOnMap([d.longitude,d.latitude]).y; })
+         // Create Fire Canvas ----------------------------------------------------------------------------------------
+         let svgTerror = d3.select(container).append("svg")
+         //map.on("viewreset", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
+         //map.on("move", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
 
 
-        circles
-            .exit()
-            .remove()
-
-        circles
-            .attr("cx", function(d) { return projectOnMap([d.longitude,d.latitude]).x; })
-            .attr("cy", function(d) { return projectOnMap([d.longitude,d.latitude]).y; })
-
-
-        function projectOnMap(d) {
-            const lon = parseFloat(d[0].replace(/,/g, '.'));
-            const lat = parseFloat(d[1].replace(/,/g, '.'));
-
-            return map.project(new mapboxgl.LngLat(lon, lat));
-        }
+         // Do First Data Update --------------------------------------------------------------------------------------
+         //Fire.updateFire(FireData,map,svgFire,div)
+         //Terror.updateTerror(TerrorData,map,svgTerror,div)
+         Institutions.updateInstitutions(InstitutionData,map,div,context)
     }
 
      render() {
