@@ -59,14 +59,18 @@ import * as Terror from '../Terror/Terror'
          map.on("viewreset", () => Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext))
          map.on("move", () => Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext))
 
+         map.on('mousemove', function(e) {
+             Institutions.checkIfExists(e,InstitutionData,map)
+             //console.log(e.point)
+         })
          // Create Fire Canvas ----------------------------------------------------------------------------------------
          let FireCanvas = d3.select(container).append("canvas")
              .attr('width', 1400)
              .attr('height', 800)
          let FireContext = FireCanvas.node().getContext('2d')
 
-         map.on("viewreset", () => Fire.updateFire(FireData,map,div,FireContext))
-         map.on("move", () => Fire.updateFire(FireData,map,div,FireContext))
+         //map.on("viewreset", () => Fire.updateFire(FireData,map,div,FireContext))
+         //map.on("move", () => Fire.updateFire(FireData,map,div,FireContext))
 
          // Create Terror Canvas --------------------------------------------------------------------------------------
          let TerrorCanvas = d3.select(container).append("canvas")
@@ -74,12 +78,12 @@ import * as Terror from '../Terror/Terror'
              .attr('height', 800)
          let TerrorContext = TerrorCanvas.node().getContext('2d')
 
-         map.on("viewreset", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
-         map.on("move", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
+         //map.on("viewreset", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
+         //map.on("move", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
 
          // Do First Data Update --------------------------------------------------------------------------------------
-         Fire.updateFire(FireData,map,div,FireContext)
-         Terror.updateTerror(TerrorData,map,div,TerrorContext)
+         //Fire.updateFire(FireData,map,div,FireContext)
+         //Terror.updateTerror(TerrorData,map,div,TerrorContext)
          Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext)
     }
 

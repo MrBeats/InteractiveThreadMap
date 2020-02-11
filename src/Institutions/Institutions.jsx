@@ -67,3 +67,25 @@ export function updateInstitutions(csvData,map,div,context) {
         return map.project(new mapboxgl.LngLat(lon, lat));
     }
 }
+
+export function checkIfExists(e,data,map) {
+    function projectOnMap(d) {
+        const lon = parseFloat(d[0].replace(/,/g, '.'));
+        const lat = parseFloat(d[1].replace(/,/g, '.'));
+
+        return map.project(new mapboxgl.LngLat(lon, lat));
+    }
+
+    // get DataPoints where Mouse is on
+
+    console.log(data.filter(d => {
+        let datapoint = projectOnMap([d.Longitude,d.Latitude])
+        let x1 = parseInt(datapoint.x)
+        let y1 = parseInt(datapoint.y)
+        let x2 = parseInt(e.point.x)
+        let y2 = parseInt(e.point.y)
+        return x1 === x2 && y1 === y2
+        }).length)
+}
+
+
