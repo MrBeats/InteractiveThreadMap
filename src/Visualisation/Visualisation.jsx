@@ -70,8 +70,9 @@ import * as Terror from '../Terror/Terror'
                  institutionsUnderMouse.forEach(inst => htmlString += inst.name + "<br/>" + inst.Adresse + "<br/><br/>")
 
                  div.html(htmlString)
-                     .style("left", (e.point.x) + "px")
-                     .style("top", (e.point.y - 28) + "px");
+                     .style("left", (e.point.x + 350) + "px")
+                     .style("top", (e.point.y - 28) + "px")
+                     .style("height", (institutionsUnderMouse.length * 65) + "px")
              }
              else {
                  div.transition()

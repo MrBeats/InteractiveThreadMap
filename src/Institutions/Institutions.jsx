@@ -69,7 +69,8 @@ export function checkIfExists(e,data,map) {
         let y1 = parseInt(datapoint.y)
         let x2 = parseInt(e.point.x)
         let y2 = parseInt(e.point.y)
-        return x1 === x2 && y1 === y2
+        return x2 > x1 - 2 && x2 < x1 + 2 && y2 > y1 - 2 && y2 < y1 + 2
+        //return x1 === x2 && y1 === y2
     })
     if (res.length === 0) {
         return false
