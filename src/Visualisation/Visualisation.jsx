@@ -8,27 +8,45 @@ import * as Institutions from '../Institutions/Institutions'
 import * as Fire from '../FireData/Fire'
 import * as Terror from '../Terror/Terror'
 import * as Corona from '../Corona/Corona'
+import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
 
  class Visualisation extends React.Component {
-
      constructor (){
          super()
          this.createMap = this.createMap.bind(this)
+         this.flyToLatLon = this.flyToLatLon.bind(this);
+
+         this.state = {
+            map: null
+         }
      }
 
      componentDidMount() {
-         this.createMap()
+         mapboxgl.accessToken = 'pk.eyJ1IjoiZW5qYWxvdCIsImEiOiJjaWhtdmxhNTIwb25zdHBsejk0NGdhODJhIn0.2-F2hS_oTZenAWc0BMf_uw'
+         this.setState({
+             map: new mapboxgl.Map({
+                 container: 'map', // container id
+                 style: 'mapbox://styles/enjalot/cihmvv7kg004v91kn22zjptsc',
+                 center: [-10, 30],
+                 zoom: 2,
+             })
+         },() => {
+             this.createMap()
+         })
+
+     }
+
+     flyToLatLon(lat,lon) {
+         const {map} = this.state
+         map.flyTo({
+             center: new mapboxgl.LngLat(lon, lat),
+             essential: true
+         });
      }
 
      async createMap() {
+         const {map} = this.state
          // Karte erstellen -------------------------------------------------------------------------------------------
-         mapboxgl.accessToken = 'pk.eyJ1IjoiZW5qYWxvdCIsImEiOiJjaWhtdmxhNTIwb25zdHBsejk0NGdhODJhIn0.2-F2hS_oTZenAWc0BMf_uw'
-         let map = new mapboxgl.Map({
-             container: 'map', // container id
-             style: 'mapbox://styles/enjalot/cihmvv7kg004v91kn22zjptsc',
-             center: [-10, 30],
-             zoom: 2,
-         })
          map.scrollZoom.enable()
          map.NavigationControl = new mapboxgl.NavigationControl()
 
@@ -88,8 +106,8 @@ import * as Corona from '../Corona/Corona'
              .attr('height', 800)
          let FireContext = FireCanvas.node().getContext('2d')
 
-         map.on("viewreset", () => Fire.updateFire(FireData,map,div,FireContext))
-         map.on("move", () => Fire.updateFire(FireData,map,div,FireContext))
+         //map.on("viewreset", () => Fire.updateFire(FireData,map,div,FireContext))
+         //map.on("move", () => Fire.updateFire(FireData,map,div,FireContext))
 
          // Create Terror Canvas --------------------------------------------------------------------------------------
          let TerrorCanvas = d3.select(container).append("canvas")
@@ -97,25 +115,29 @@ import * as Corona from '../Corona/Corona'
              .attr('height', 800)
          let TerrorContext = TerrorCanvas.node().getContext('2d')
 
-         map.on("viewreset", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
-         map.on("move", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
+         //map.on("viewreset", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
+         //map.on("move", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
 
          // Do First Data Update --------------------------------------------------------------------------------------
-         Fire.updateFire(FireData,map,div,FireContext)
-         Terror.updateTerror(TerrorData,map,div,TerrorContext)
+         //Fire.updateFire(FireData,map,div,FireContext)
+         //Terror.updateTerror(TerrorData,map,div,TerrorContext)
          Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext)
-         Corona.updateCorona(CoronaWorldData,map)
+         //Corona.updateCorona(CoronaWorldData,map)
     }
 
      render() {
+         const {map} = this.state
         return (
-            <div id="map" ref="karte" style={{
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                width: '1400px',
-                height: '800px',
-            }}>
+            <div>
+                <InstitutionFocusBar flyTo={this.flyToLatLon}/>
+                <div id="map" ref="karte" style={{
+                    position: 'absolute',
+                    top: 0,
+                    bottom: 0,
+                    width: '1400px',
+                    height: '800px',
+                }}>
+                </div>
             </div>
         );
     }
