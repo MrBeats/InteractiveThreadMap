@@ -8,9 +8,9 @@ import * as Institutions from '../Institutions/Institutions'
 import * as Fire from '../FireData/Fire'
 import * as Terror from '../Terror/Terror'
 import * as Corona from '../Corona/Corona'
+import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
 
  class Visualisation extends React.Component {
-
      constructor (){
          super()
          this.createMap = this.createMap.bind(this)
@@ -88,8 +88,8 @@ import * as Corona from '../Corona/Corona'
              .attr('height', 800)
          let FireContext = FireCanvas.node().getContext('2d')
 
-         map.on("viewreset", () => Fire.updateFire(FireData,map,div,FireContext))
-         map.on("move", () => Fire.updateFire(FireData,map,div,FireContext))
+         //map.on("viewreset", () => Fire.updateFire(FireData,map,div,FireContext))
+         //map.on("move", () => Fire.updateFire(FireData,map,div,FireContext))
 
          // Create Terror Canvas --------------------------------------------------------------------------------------
          let TerrorCanvas = d3.select(container).append("canvas")
@@ -97,25 +97,28 @@ import * as Corona from '../Corona/Corona'
              .attr('height', 800)
          let TerrorContext = TerrorCanvas.node().getContext('2d')
 
-         map.on("viewreset", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
-         map.on("move", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
+         //map.on("viewreset", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
+         //map.on("move", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
 
          // Do First Data Update --------------------------------------------------------------------------------------
-         Fire.updateFire(FireData,map,div,FireContext)
-         Terror.updateTerror(TerrorData,map,div,TerrorContext)
+         //Fire.updateFire(FireData,map,div,FireContext)
+         //Terror.updateTerror(TerrorData,map,div,TerrorContext)
          Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext)
-         Corona.updateCorona(CoronaWorldData,map)
+         //Corona.updateCorona(CoronaWorldData,map)
     }
 
      render() {
         return (
-            <div id="map" ref="karte" style={{
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                width: '1400px',
-                height: '800px',
-            }}>
+            <div>
+                <InstitutionFocusBar />
+                <div id="map" ref="karte" style={{
+                    position: 'absolute',
+                    top: 0,
+                    bottom: 0,
+                    width: '1400px',
+                    height: '800px',
+                }}>
+                </div>
             </div>
         );
     }
