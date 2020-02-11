@@ -1,8 +1,5 @@
 import React from 'react'
 import * as mapboxgl from "mapbox-gl"
-import extData from '../Institutions/InstitutionData_Ext.csv'
-import fireData from '../FireData/Feuer.csv'
-import terrorData from '../Terror/globalterrorismdb_0919dist.csv'
 import * as d3 from "d3"
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './Visualisation.css'
@@ -10,6 +7,7 @@ import './Visualisation.css'
 import * as Institutions from '../Institutions/Institutions'
 import * as Fire from '../FireData/Fire'
 import * as Terror from '../Terror/Terror'
+import * as Corona from '../Corona/Corona'
 
  class Visualisation extends React.Component {
 
@@ -42,9 +40,13 @@ import * as Terror from '../Terror/Terror'
          let InstitutionData = await Institutions.readInstitutionData()
          let FireData = await Fire.readFireData()
          let TerrorData = await Terror.readTerrorData()
-         console.log(InstitutionData)
-         console.log(FireData)
-         console.log(TerrorData)
+         let CoronaWorldData = await Corona.readCoronaWorldData()
+         let CountryCodes = await Corona.readCountryCodesData()
+            console.log(InstitutionData)
+            console.log(FireData)
+            console.log(TerrorData)
+            console.log(CoronaWorldData)
+            console.log(CountryCodes)
 
          // Create Institution Canvas ---------------------------------------------------------------------------------
          let InstitutionCanvas = d3.select(container).append("canvas")
@@ -86,8 +88,8 @@ import * as Terror from '../Terror/Terror'
              .attr('height', 800)
          let FireContext = FireCanvas.node().getContext('2d')
 
-         //map.on("viewreset", () => Fire.updateFire(FireData,map,div,FireContext))
-         //map.on("move", () => Fire.updateFire(FireData,map,div,FireContext))
+         map.on("viewreset", () => Fire.updateFire(FireData,map,div,FireContext))
+         map.on("move", () => Fire.updateFire(FireData,map,div,FireContext))
 
          // Create Terror Canvas --------------------------------------------------------------------------------------
          let TerrorCanvas = d3.select(container).append("canvas")
@@ -95,13 +97,14 @@ import * as Terror from '../Terror/Terror'
              .attr('height', 800)
          let TerrorContext = TerrorCanvas.node().getContext('2d')
 
-         //map.on("viewreset", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
-         //map.on("move", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
+         map.on("viewreset", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
+         map.on("move", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
 
          // Do First Data Update --------------------------------------------------------------------------------------
-         //Fire.updateFire(FireData,map,div,FireContext)
-         //Terror.updateTerror(TerrorData,map,div,TerrorContext)
+         Fire.updateFire(FireData,map,div,FireContext)
+         Terror.updateTerror(TerrorData,map,div,TerrorContext)
          Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext)
+         Corona.updateCorona(CoronaWorldData,map)
     }
 
      render() {
