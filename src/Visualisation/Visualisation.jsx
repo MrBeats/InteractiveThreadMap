@@ -42,11 +42,11 @@ import * as Corona from '../Corona/Corona'
          let TerrorData = await Terror.readTerrorData()
          let CoronaWorldData = await Corona.readCoronaWorldData()
          let CountryCodes = await Corona.readCountryCodesData()
-         console.log(InstitutionData)
-         console.log(FireData)
-         console.log(TerrorData)
-         console.log(CoronaWorldData)
-         console.log(CountryCodes)
+        //  console.log(InstitutionData)
+        //  console.log(FireData)
+        //  console.log(TerrorData)
+        //  console.log(CoronaWorldData)
+        //  console.log(CountryCodes)
 
          // Create Institution Canvas ---------------------------------------------------------------------------------
          let canvas = d3.select(container).append("canvas")
@@ -72,8 +72,8 @@ import * as Corona from '../Corona/Corona'
          //map.on("move", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
 
          // Create Corona Updates ----------------------------------------------------------------------------------------
-         map.on("viewreset", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
-         map.on("move", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
+         //map.on("viewreset", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
+         //map.on("move", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
 
 
          // Do First Data Update --------------------------------------------------------------------------------------

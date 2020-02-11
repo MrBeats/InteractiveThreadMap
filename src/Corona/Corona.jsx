@@ -19,7 +19,7 @@ export async function readCoronaWorldData() {
         console.log(d.ISO3)
     })
 
-    console.log(data)
+    //console.log(data)
     return data
 }
 
@@ -27,8 +27,15 @@ export async function readCountryCodesData() {
     return await d3.dsv("|", countryCodesData)
 }
 
-export function updateCorona(coronaData, map){
+function getCol(matrix, col){
+  var column = [];
+  for(var i=0; i<matrix.length; i++){
+     column.push(matrix[i][col]);
+  }
+  return column;
+}
 
+export function updateCorona(coronaData, map){
     return (map.addLayer({ //here we are adding a layer containing the tileset we just uploaded
         'id': 'countries',
         'source': {
@@ -42,6 +49,5 @@ export function updateCorona(coronaData, map){
           'fill-outline-color': '#F2F2F2' //this helps us distinguish individual countries a bit better by giving them an outline
         }
       }),
-        
-      map.setFilter('countries', ['in', 'ADM0_A3_IS'].concat(['USA', 'AUS', 'NGA'])))
-}
+      map.setFilter('countries', ['in', 'ADM0_A3_IS'].concat(getCol(coronaData, 'ISO3')))
+)}
