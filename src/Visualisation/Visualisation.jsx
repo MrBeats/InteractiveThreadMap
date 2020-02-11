@@ -71,11 +71,17 @@ import * as Corona from '../Corona/Corona'
          //map.on("viewreset", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
          //map.on("move", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
 
+         // Create Corona Updates ----------------------------------------------------------------------------------------
+         map.on("viewreset", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
+         map.on("move", () => Terror.updateTerror(TerrorData,map,svgTerror,div))
+
 
          // Do First Data Update --------------------------------------------------------------------------------------
          //Fire.updateFire(FireData,map,svgFire,div)
          //Terror.updateTerror(TerrorData,map,svgTerror,div)
+
          Institutions.updateInstitutions(InstitutionData,map,div,context)
+         Corona.updateCorona(CoronaWorldData,map)
     }
 
      render() {
