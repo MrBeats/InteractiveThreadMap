@@ -14,21 +14,39 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
      constructor (){
          super()
          this.createMap = this.createMap.bind(this)
+         this.flyToLatLon = this.flyToLatLon.bind(this);
+
+         this.state = {
+            map: null
+         }
      }
 
      componentDidMount() {
-         this.createMap()
+         mapboxgl.accessToken = 'pk.eyJ1IjoiZW5qYWxvdCIsImEiOiJjaWhtdmxhNTIwb25zdHBsejk0NGdhODJhIn0.2-F2hS_oTZenAWc0BMf_uw'
+         this.setState({
+             map: new mapboxgl.Map({
+                 container: 'map', // container id
+                 style: 'mapbox://styles/enjalot/cihmvv7kg004v91kn22zjptsc',
+                 center: [-10, 30],
+                 zoom: 2,
+             })
+         },() => {
+             this.createMap()
+         })
+
+     }
+
+     flyToLatLon(lat,lon) {
+         const {map} = this.state
+         map.flyTo({
+             center: new mapboxgl.LngLat(lon, lat),
+             essential: true
+         });
      }
 
      async createMap() {
+         const {map} = this.state
          // Karte erstellen -------------------------------------------------------------------------------------------
-         mapboxgl.accessToken = 'pk.eyJ1IjoiZW5qYWxvdCIsImEiOiJjaWhtdmxhNTIwb25zdHBsejk0NGdhODJhIn0.2-F2hS_oTZenAWc0BMf_uw'
-         let map = new mapboxgl.Map({
-             container: 'map', // container id
-             style: 'mapbox://styles/enjalot/cihmvv7kg004v91kn22zjptsc',
-             center: [-10, 30],
-             zoom: 2,
-         })
          map.scrollZoom.enable()
          map.NavigationControl = new mapboxgl.NavigationControl()
 
@@ -108,9 +126,10 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
     }
 
      render() {
+         const {map} = this.state
         return (
             <div>
-                <InstitutionFocusBar />
+                <InstitutionFocusBar flyTo={this.flyToLatLon}/>
                 <div id="map" ref="karte" style={{
                     position: 'absolute',
                     top: 0,

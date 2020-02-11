@@ -1,6 +1,7 @@
 import './InstitutionFocusBar.css'
 import React from 'react';
 import * as Institutions from "../Institutions/Institutions";
+import * as mapboxgl from "mapbox-gl";
 
 class InstitutionFocusBar extends React.Component {
     constructor(props) {
@@ -8,6 +9,7 @@ class InstitutionFocusBar extends React.Component {
         this.getAllChoices = this.getAllChoices.bind(this);
         this.getCol = this.getCol.bind(this);
         this.getOptions = this.getOptions.bind(this);
+        this.chooseInstitution = this.chooseInstitution.bind(this);
 
         this.state = {
             inputString: "",
@@ -17,6 +19,7 @@ class InstitutionFocusBar extends React.Component {
 
     }
     componentDidMount() {
+        this.refs.focusForm.onsubmit = () => this.chooseInstitution();
         this.getAllChoices()
     }
 
@@ -28,15 +31,33 @@ class InstitutionFocusBar extends React.Component {
     }
 
     getOptions() {
-        const {choices,inputString} = this.state;
-        console.log(inputString)
+        const {choices,inputString,options} = this.state;
         if (choices != null) {
-            console.log(this.getCol(choices.filter(c => c.name.includes(inputString)),'name'))
-            this.setState({options: this.getCol(choices.filter(c => c.name.toLowerCase().includes(inputString.toLowerCase())),'name')})
+            this.setState({options: this.getCol(choices.filter(c => c.name.toLowerCase().includes(inputString.toLowerCase())),'name')},() => {
+                if (this.state.options.length == 1) {
+                    this.chooseInstitution()
+                }
+            })
         }
         else {
             this.setState({options: []})
         }
+    }
+
+    chooseInstitution() {
+        const {choices,options} = this.state;
+        if(options[0])
+        {
+        const current = choices.filter(c => c.name == options[0])
+        if(current[0])
+            {
+                this.props.flyTo(
+                    parseFloat(current[0].Latitude.replace(/,/g, '.')),
+                    parseFloat(current[0].Longitude.replace(/,/g, '.'))
+                )
+            }
+        }
+        return false
     }
 
     getCol(matrix, col){
@@ -52,16 +73,22 @@ class InstitutionFocusBar extends React.Component {
 
         return (
             <div>
-                <form id="input">
+                <form ref='focusForm' id="input">
                     <input type="text" name="name" id="name_input" list="huge_list" value={this.state.inputString}
                            onChange={(e) => {
                                 this.setState({ inputString: e.target.value }, () => {
                                     this.getOptions()
                                 })
-                           }}/> Institution
+                           }}
+                            onSubmit={(e) => {
+                                this.setState({ inputString: e.target.value }, () => {
+                                    this.chooseInstitution()
+                                })
+                            }}
+                    /> Institution
                     <datalist id="huge_list">
                         {
-                            options.length < 25 ?
+                            options.length < 15 ?
                             options.map((o,i) => {
                             return (<option key={i} value={o} />)
                             }) : <div></div>
