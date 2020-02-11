@@ -28,19 +28,6 @@ export function updateInstitutions(csvData,map,div,context) {
         .attr("opacity", 0.7)
         .attr("cx", function(d) { return projectOnMap([d.Longitude,d.Latitude]).x; })
         .attr("cy", function(d) { return projectOnMap([d.Longitude,d.Latitude]).y; })
-        .on("mouseover", function(d) {
-            div.transition()
-                .duration(200)
-                .style("opacity", .9);
-            div.html(d.name + "<br/><br/>"  + d.Adresse)
-                .style("left", (d3.event.pageX) + "px")
-                .style("top", (d3.event.pageY - 28) + "px");
-        })
-        .on("mouseout", function(d) {
-            div.transition()
-                .duration(500)
-                .style("opacity", 0);
-        })
 
     circles
         .exit()
@@ -49,6 +36,7 @@ export function updateInstitutions(csvData,map,div,context) {
     circles
         .attr("cx", function(d) { return projectOnMap([d.Longitude,d.Latitude]).x; })
         .attr("cy", function(d) { return projectOnMap([d.Longitude,d.Latitude]).y; })
+
     // Draw on Canvas
     context.clearRect(0, 0, 1400, 800)
     let elements = custom.selectAll('circle')
@@ -75,17 +63,21 @@ export function checkIfExists(e,data,map) {
 
         return map.project(new mapboxgl.LngLat(lon, lat));
     }
-
-    // get DataPoints where Mouse is on
-
-    console.log(data.filter(d => {
+    let res = data.filter(d => {
         let datapoint = projectOnMap([d.Longitude,d.Latitude])
         let x1 = parseInt(datapoint.x)
         let y1 = parseInt(datapoint.y)
         let x2 = parseInt(e.point.x)
         let y2 = parseInt(e.point.y)
         return x1 === x2 && y1 === y2
-        }).length)
+    })
+    if (res.length === 0) {
+        return false
+    }
+    else {
+        return res
+    }
+
 }
 
 

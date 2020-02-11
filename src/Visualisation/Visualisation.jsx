@@ -60,8 +60,24 @@ import * as Terror from '../Terror/Terror'
          map.on("move", () => Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext))
 
          map.on('mousemove', function(e) {
-             Institutions.checkIfExists(e,InstitutionData,map)
-             //console.log(e.point)
+             let institutionsUnderMouse = Institutions.checkIfExists(e,InstitutionData,map)
+             if (institutionsUnderMouse !== false) {
+                 div.transition()
+                     .duration(200)
+                     .style("opacity", .9)
+                 let htmlString = ""
+
+                 institutionsUnderMouse.forEach(inst => htmlString += inst.name + "<br/>" + inst.Adresse + "<br/><br/>")
+
+                 div.html(htmlString)
+                     .style("left", (e.point.x) + "px")
+                     .style("top", (e.point.y - 28) + "px");
+             }
+             else {
+                 div.transition()
+                     .duration(500)
+                     .style("opacity", 0);
+             }
          })
          // Create Fire Canvas ----------------------------------------------------------------------------------------
          let FireCanvas = d3.select(container).append("canvas")
