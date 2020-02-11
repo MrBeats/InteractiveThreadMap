@@ -40,7 +40,8 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
          const {map} = this.state
          map.flyTo({
              center: new mapboxgl.LngLat(lon, lat),
-             essential: true
+             essential: true,
+             zoom: 9
          });
      }
 
