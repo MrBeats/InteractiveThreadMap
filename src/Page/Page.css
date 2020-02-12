@@ -30,7 +30,7 @@ p{
 .containerItem {
     height: 1080px;
     width: 100%;
-    text-align: center;
+    text-align: justify;
 }
 .topic{
     background-color: white;
