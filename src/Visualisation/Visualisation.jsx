@@ -211,7 +211,6 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
                         <input type="checkbox" defaultChecked={map?map.getLayoutProperty("corona","visibility") == "visible":true} onChange={() => this.mapLayerToggle("Corona")} />
                     </label>
                 </div>
-                <br/>
                 <div style={{
                     width: '1400px',
                     height: '800px',
