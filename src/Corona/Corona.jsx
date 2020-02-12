@@ -45,5 +45,5 @@ export function updateCorona(coronaData, map){
           'fill-outline-color': '#F2F2F2' //this helps us distinguish individual countries a bit better by giving them an outline
         }
       }),
-      map.setFilter('countries', ['in', 'ADM0_A3_IS'].concat(getCol(coronaData, 'ISO3')))
+      map.setFilter('corona', ['in', 'ADM0_A3_IS'].concat(getCol(coronaData, 'ISO3')))
 )}

@@ -55,14 +55,15 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
      mapLayerToggle(name) {
          const {map} = this.state
          if(map) {
-             console.log(map)
-             if (name === "Corona") {
-                    if (map.getLayoutProperty("corona","visibility") == "none") {
+             if(map.isStyleLoaded()) {
+                 if (name === "Corona") {
+                     if (map.getLayoutProperty("corona","visibility") == "none") {
                          map.setLayoutProperty("corona", 'visibility', 'visible');
                      }
                      else {
                          map.setLayoutProperty("corona", 'visibility', 'none');
                      }
+                 }
              }
          }
 
@@ -185,18 +186,19 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
              Terror.updateTerror(TerrorData,map,[],TerrorContext)
          })
          // Do First Data Update --------------------------------------------------------------------------------------
+         console.log(CoronaWorldData,map)
          Corona.updateCorona(CoronaWorldData,map)
     }
 
      render() {
-         const {map,InstCanvas, FireCanvas, TerrorCanvas, CoronaCanvas} = this.state
+        const {map,InstCanvas, FireCanvas, TerrorCanvas, CoronaCanvas} = this.state
         return (
             <div>
                 <InstitutionFocusBar flyTo={this.flyToLatLon}/>
-                <input id="toggleInst" type="checkbox" name="InstituteToggle" value="Institute" defaultChecked={InstCanvas?InstCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(InstCanvas,"Institute")} />
-                <input id="toggleFire" type="checkbox" name="InstituteToggle" value="Institute" defaultChecked={FireCanvas?FireCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(FireCanvas,"Fire")} />
-                <input id="toggleTerror" type="checkbox" name="InstituteToggle" value="Institute" defaultChecked={TerrorCanvas?TerrorCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(TerrorCanvas,"Terror")} />
-                <input id="toggleCorona" type="checkbox" name="InstituteToggle" value="Institute" defaultChecked={map?map.getLayoutProperty("corona","visibility") == "none":true} onChange={this.mapLayerToggle("Corona")} />
+                <input id="toggleInst" type="checkbox" defaultChecked={InstCanvas?InstCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(InstCanvas,"Institute")} />
+                <input id="toggleFire" type="checkbox" defaultChecked={FireCanvas?FireCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(FireCanvas,"Fire")} />
+                <input id="toggleTerror" type="checkbox" defaultChecked={TerrorCanvas?TerrorCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(TerrorCanvas,"Terror")} />
+                <input id="toggleCorona" type="checkbox" defaultChecked={map?map.getLayoutProperty("corona","visibility") == "visible":true} onChange={() => this.mapLayerToggle("Corona")} />
 
                 <div id="map" ref="karte" style={{
                     position: 'absolute',
