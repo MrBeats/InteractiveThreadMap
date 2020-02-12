@@ -4,6 +4,7 @@ import './Page.css';
 import { Waypoint } from 'react-waypoint';
 import InstImg from '../images/map_inst_screen.png';
 import FireImg from '../images/map_fire_screen.png';
+import Visualisation from "../Visualisation/Visualisation";
 
 class Page extends React.PureComponent {
     componentDidMount(){
@@ -11,64 +12,57 @@ class Page extends React.PureComponent {
     }
 
     changeBackground(layer){
-        let container = d3.select("#container")
-        console.log(container)
+        let container = d3.select("#header")
+        if(layer === "Topic"){
+            container.attr("class", "topic")
+        }
         if(layer === "Institutions"){
             container.attr("class", "institutions")
         }
         if(layer === "Fire"){
             container.attr("class", "fire")
         }
+        if(layer === "Terror"){
+            container.attr("class", "terror")
+        }
+        if(layer === "Corona"){
+            container.attr("class", "corona")
+        }
     }
     
     render() {
         return (
-            <div>
-            <div id="container"/>
-            <div id="container2"> 
-                {/* Ueberschrift */}
-                <div className='overview'>
-                    <div className='topic'>
-                        <h1>Interactive thread map</h1>
-                    </div>
-                    {/* Projektbeschreibung */}
-                    <div className='Description'>
-                        <p>Beschreibung</p>
-                    </div>
+            <div id={"container"} >
+                <div className={"containerItem"}>
+                    <h1>Interactive thread map</h1>
                 </div>
-                <Waypoint
-                    onEnter={this.changeBackground.bind(this,"Institutions")}
-                />
-                <div id='institutions' >
-                    <div>
-                        <h1>Institutions</h1>
-                        <p>Beschreibung</p>
-                    </div>
+                <Waypoint onEnter={this.changeBackground.bind(this,"Topic")} />
+                <div className={"containerItem"}>
+                    <p>Beschreibung</p>
                 </div>
-                <div id='fire' >
-                    <div>
-                        <h1>Fire</h1>
-                        <p>Beschreibung</p>
-                    </div>
+                <Waypoint onEnter={this.changeBackground.bind(this,"Institutions")} />
+                <div className={"containerItem"}>
+                    <h1>Institutions</h1>
+                    <p>Beschreibung</p>
                 </div>
-                <div id='terror'>
+                <Waypoint onEnter={this.changeBackground.bind(this,"Fire")} />
+                <div className={"containerItem"}>
+                    <h1>Fire</h1>
+                    <p>Beschreibung</p>
+                </div>
+                <Waypoint onEnter={this.changeBackground.bind(this,"Terror")} />
+                <div className={"containerItem"}>
                     <h1>Terrorism</h1>
                     <p>Beschreibung</p>
                 </div>
-                <div id='corona'>
-                    <h1>Corona virus</h1>
+                <Waypoint onEnter={this.changeBackground.bind(this,"Corona")} />
+                <div className={"containerItem"}>
+                    <h1>Corona</h1>
                     <p>Beschreibung</p>
                 </div>
-                <Waypoint
-                    onEnter={this.changeBackground.bind(this,"Fire")}
-                />
-                <div className='map'>
-                    <h1>Map</h1>
-                    <p>Beschreibung</p>
-                </div>
-                </div>
+                <Waypoint onEnter={this.changeBackground.bind(this,"Topic")} />
             </div>
-        );
+        )
     }
 }
 
