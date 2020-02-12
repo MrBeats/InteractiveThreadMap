@@ -2,9 +2,7 @@ import React from 'react';
 import * as d3 from "d3";
 import './Page.css';
 import { Waypoint } from 'react-waypoint';
-import InstImg from '../images/map_inst_screen.png';
-import FireImg from '../images/map_fire_screen.png';
-import Visualisation from "../Visualisation/Visualisation";
+import Visualisation from '../Visualisation/Visualisation';
 
 class Page extends React.PureComponent {
     componentDidMount(){
@@ -27,6 +25,9 @@ class Page extends React.PureComponent {
         }
         if(layer === "Corona"){
             container.attr("class", "corona")
+        }
+        if(layer === "Map"){
+            container.attr("class", "map")
         }
     }
     
@@ -60,7 +61,10 @@ class Page extends React.PureComponent {
                     <h1>Corona</h1>
                     <p>Beschreibung</p>
                 </div>
-                <Waypoint onEnter={this.changeBackground.bind(this,"Topic")} />
+                <Waypoint onEnter={this.changeBackground.bind(this,"Map")} />
+                <div className={"containerItem"}>
+                    <h1>Map</h1>
+                </div>
             </div>
         )
     }

@@ -74,7 +74,7 @@ class InstitutionFocusBar extends React.Component {
         return (
             <div>
                 <form ref='focusForm' id="input">
-                    <input type="text" name="name" id="name_input" list="huge_list" value={this.state.inputString}
+                    <input type="text" name="name" id="name_input" list="huge_list" placeholder='Type an institution' value={this.state.inputString}
                            onChange={(e) => {
                                 this.setState({ inputString: e.target.value }, () => {
                                     this.getOptions()
@@ -85,7 +85,7 @@ class InstitutionFocusBar extends React.Component {
                                     this.chooseInstitution()
                                 })
                             }}
-                    /> Institution
+                    />
                     <datalist id="huge_list">
                         {
                             options.length < 15 ?
