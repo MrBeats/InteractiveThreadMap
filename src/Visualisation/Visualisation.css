@@ -23,24 +23,29 @@ div.tooltip {
 #map canvas {
     cursor: crosshair;
 }
-#toggleInst{
-    position: absolute;
-    top: 100px;
-    left: 100px;
-}
+
 #toggleFire{
+    text-align: center;
     position: absolute;
-    top: 130px;
-    left: 100px;
+    top: 900px;
+    font-size: x-large;
 }
 #toggleTerror{
+    text-align: center;
     position: absolute;
-    top: 160px;
-    left: 100px;
+    font-size: x-large;
+    top: 900px;
+    left: 500px;
 }
 #toggleCorona{
+    text-align: center;
     position: absolute;
-    top: 190px;
-    left: 100px;
+    font-size: x-large;
+    top: 900px;
+    left: 750px;
 }
 
+#boxes{
+    text-align: center;
+    position: right;
+}
