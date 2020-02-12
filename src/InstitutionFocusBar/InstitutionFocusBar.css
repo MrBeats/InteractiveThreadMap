@@ -5,3 +5,8 @@
     text-align: center;
     padding: 25px;
 }
+#toggleFire{
+    text-align: center;
+    position: relative;
+    font-size: x-large;
+}

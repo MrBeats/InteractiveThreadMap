@@ -74,26 +74,31 @@ class InstitutionFocusBar extends React.Component {
         return (
             <div>
                 <form ref='focusForm' id="input">
-                    <input type="text" name="name" id="name_input" list="huge_list" placeholder='Type an institution' value={this.state.inputString}
-                           onChange={(e) => {
-                                this.setState({ inputString: e.target.value }, () => {
-                                    this.getOptions()
-                                })
-                           }}
-                            onSubmit={(e) => {
-                                this.setState({ inputString: e.target.value }, () => {
-                                    this.chooseInstitution()
-                                })
-                            }}
-                    />
-                    <datalist id="huge_list">
-                        {
-                            options.length < 15 ?
-                            options.map((o,i) => {
-                            return (<option key={i} value={o} />)
-                            }) : <div></div>
-                        }
-                    </datalist>
+                    <label id='toggleFire'>
+                        Look up an Institute:
+                        <br/>
+                        <input type="text" name="name" id="name_input" list="huge_list" placeholder='Type an institution' value={this.state.inputString}
+                               onChange={(e) => {
+                                   this.setState({ inputString: e.target.value }, () => {
+                                       this.getOptions()
+                                   })
+                               }}
+                               onSubmit={(e) => {
+                                   this.setState({ inputString: e.target.value }, () => {
+                                       this.chooseInstitution()
+                                   })
+                               }}
+                        />
+                        <datalist id="huge_list">
+                            {
+                                options.length < 15 ?
+                                    options.map((o,i) => {
+                                        return (<option key={i} value={o} />)
+                                    }) : <div></div>
+                            }
+                        </datalist>
+                    </label>
+
                 </form>
             </div>
         )
