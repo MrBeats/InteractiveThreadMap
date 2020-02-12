@@ -1,10 +1,10 @@
 svg {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
 }
 canvas {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
 }
@@ -26,26 +26,24 @@ div.tooltip {
 
 #toggleFire{
     text-align: center;
-    position: absolute;
-    top: 900px;
+    position: relative;
     font-size: x-large;
 }
 #toggleTerror{
     text-align: center;
-    position: absolute;
+    position: relative;
     font-size: x-large;
-    top: 900px;
-    left: 500px;
 }
 #toggleCorona{
     text-align: center;
-    position: absolute;
+    position: relative;
     font-size: x-large;
-    top: 900px;
-    left: 750px;
 }
 
 #boxes{
     text-align: center;
-    position: right;
+    margin: 0 auto;
+    width: 1400px;
+    display: flex;
+    justify-content: space-around;
 }

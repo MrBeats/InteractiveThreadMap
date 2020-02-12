@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <header className="App-header">
           <img id="header"/>
-          <Visualisation/>
+          <Page />
       </header>
       </div>
   );

@@ -64,6 +64,7 @@ class Page extends React.PureComponent {
                 <Waypoint onEnter={this.changeBackground.bind(this,"Map")} />
                 <div className={"containerItem"}>
                     <h1>Map</h1>
+                    <Visualisation/>
                 </div>
             </div>
         )

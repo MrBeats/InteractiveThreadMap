@@ -151,7 +151,7 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
                      institutionsUnderMouse.forEach(inst => htmlString += inst.name + "<br/>" + inst.Adresse + "<br/><br/>")
 
                      div.html(htmlString)
-                         .style("left", (e.point.x + 350) + "px")
+                         .style("left", (e.point.x + 150) + "px")
                          .style("top", (e.point.y - 28) + "px")
                          .style("height", (institutionsUnderMouse.length * 65) + "px")
                  }
@@ -211,12 +211,19 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
                         <input type="checkbox" defaultChecked={map?map.getLayoutProperty("corona","visibility") == "visible":true} onChange={() => this.mapLayerToggle("Corona")} />
                     </label>
                 </div>
-                <div id="map" ref="karte" style={{
-                    top: 0,
-                    bottom: 0,
+                <br/>
+                <div style={{
                     width: '1400px',
                     height: '800px',
+                    margin: '0 auto',
                 }}>
+                    <div id="map" ref="karte" style={{
+                        top: 0,
+                        bottom: 0,
+                        width: '1400px',
+                        height: '800px',
+                    }}>
+                    </div>
                 </div>
             </div>
         );
