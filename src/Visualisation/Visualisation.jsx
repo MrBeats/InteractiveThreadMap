@@ -59,19 +59,46 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
          if(canvas){
              if(canvas.style("display") != "none") {
                  canvas.style("display", "none")
+                 const {map} = this.state
                  if (layer === "Institute") {
-                     const {map} = this.state
                      map.off("viewreset", this.state.InstMapMove)
                      map.off("move", this.state.InstMapMove)
+                 }
+                 else if (layer === "Fire") {
+                     map.off("viewreset", this.state.FireMapMove)
+                     map.off("move", this.state.FireMapMove)
+                 }
+                 else if (layer === "Terror") {
+                     map.off("viewreset", this.state.TerrorMapMove)
+                     map.off("move", this.state.TerrorMapMove)
+                 }
+                 else if (layer === "Corona") {
+                     map.off("viewreset", this.state.CoronaMapMove)
+                     map.off("move", this.state.CoronaMapMove)
                  }
              } else {
                  canvas.attr("style","null")
                  canvas.style("display", "null")
+                 const {map} = this.state
                  if (layer === "Institute") {
-                     const {map} = this.state
                      map.on("viewreset", this.state.InstMapMove)
                      map.on("move", this.state.InstMapMove)
                      this.state.InstMapMove()
+                 }
+                 else if (layer === "Fire") {
+                     map.on("viewreset", this.state.FireMapMove)
+                     map.on("move", this.state.FireMapMove)
+                     this.state.FireMapMove()
+                 }
+                 else if (layer === "Terror") {
+                     map.on("viewreset", this.state.TerrorMapMove)
+                     map.on("move", this.state.TerrorMapMove)
+                     this.state.TerrorMapMove()
+                 }
+                 else if (layer === "Corona") {
+                     map.on("viewreset", this.state.CoronaMapMove)
+                     map.on("move", this.state.CoronaMapMove)
+                     this.state.CoronaMapMove()
                  }
              }
          }
@@ -130,36 +157,44 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
              Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext)
          })
          // Create Fire Canvas ----------------------------------------------------------------------------------------
-         let FireCanvas = d3.select(container).append("canvas")
-             .attr('width', 1400)
-             .attr('height', 800)
-         let FireContext = FireCanvas.node().getContext('2d')
+         this.setState({FireCanvas: d3.select(container).append("canvas").attr('width', 1400).attr('height', 800)}, () => {
+             let FireContext = this.state.FireCanvas.node().getContext('2d')
 
-         //map.on("viewreset", () => Fire.updateFire(FireData,map,div,FireContext))
-         //map.on("move", () => Fire.updateFire(FireData,map,div,FireContext))
+             this.setState({FireMapMove: () => Fire.updateFire(FireData,map,[],FireContext)}, () => {
+                 map.on("viewreset", this.state.FireMapMove)
+                 map.on("move", this.state.FireMapMove)
+             })
+
+             Fire.updateFire(FireData,map,[],FireContext)
+         })
 
          // Create Terror Canvas --------------------------------------------------------------------------------------
-         let TerrorCanvas = d3.select(container).append("canvas")
-             .attr('width', 1400)
-             .attr('height', 800)
-         let TerrorContext = TerrorCanvas.node().getContext('2d')
+         this.setState({TerrorCanvas: d3.select(container).append("canvas").attr('width', 1400).attr('height', 800)}, () => {
+             let TerrorContext = this.state.TerrorCanvas.node().getContext('2d')
 
-         //map.on("viewreset", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
-         //map.on("move", () => Terror.updateTerror(TerrorData,map,div,TerrorContext))
+             this.setState({TerrorMapMove: () => Terror.updateTerror(TerrorData,map,[],TerrorContext)}, () => {
+                 map.on("viewreset", this.state.TerrorMapMove)
+                 map.on("move", this.state.TerrorMapMove)
+             })
+
+             Terror.updateTerror(TerrorData,map,[],TerrorContext)
+         })
 
          // Do First Data Update --------------------------------------------------------------------------------------
-         //Fire.updateFire(FireData,map,div,FireContext)
-         //Terror.updateTerror(TerrorData,map,div,TerrorContext)
 
          //Corona.updateCorona(CoronaWorldData,map)
     }
 
      render() {
-         const {map,InstCanvas} = this.state
+         const {map,InstCanvas, FireCanvas, TerrorCanvas, CoronaCanvas} = this.state
         return (
             <div>
                 <InstitutionFocusBar flyTo={this.flyToLatLon}/>
-                <input id="input2" type="checkbox" name="InstituteToggle" value="Institute" defaultChecked={InstCanvas?InstCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(InstCanvas,"Institute")} />
+                <input id="toggleInst" type="checkbox" name="InstituteToggle" value="Institute" defaultChecked={InstCanvas?InstCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(InstCanvas,"Institute")} />
+                <input id="toggleFire" type="checkbox" name="InstituteToggle" value="Institute" defaultChecked={FireCanvas?FireCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(FireCanvas,"Fire")} />
+                <input id="toggleTerror" type="checkbox" name="InstituteToggle" value="Institute" defaultChecked={TerrorCanvas?TerrorCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(TerrorCanvas,"Terror")} />
+                <input id="toggleCorona" type="checkbox" name="InstituteToggle" value="Institute" defaultChecked={CoronaCanvas?CoronaCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(CoronaCanvas,"Corona")} />
+
                 <div id="map" ref="karte" style={{
                     position: 'absolute',
                     top: 0,

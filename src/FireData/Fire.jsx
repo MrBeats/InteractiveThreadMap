@@ -7,7 +7,6 @@ export async function readFireData() {
 }
 
 export function updateFire(csvData,map,div,context) {
-
     let d3Data = csvData.filter(function(d){let coord =  projectOnMap([d.longitude,d.latitude]); return ((coord.x <= 1400 && coord.x >= 0) && (coord.y <= 800 && coord.x >= 0))})
 
     let customBase = document.createElement('custom2')
