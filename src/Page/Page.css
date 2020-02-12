@@ -1,3 +1,63 @@
+h1{
+    text-align: center;
+    color: black;
+    margin: 0px
+}
+
+p{
+    text-align: center;
+    color: black;
+}
+#container {
+    height: 100%;
+    max-width: 440px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    height: 100%;
+    line-height: 1.5;
+    left: 500px;
+  }
+  #container2 div {
+    height: 110%;
+    width: 100%;
+    display: block;
+    padding: 0 45px;
+    z-index: 99;
+    height: 1000px;
+  }
+
+
 .topic{
-    background-color: blue;
+    background-color: white;
+}
+
+
+.institutions{
+    background-image: url('../images/map_inst_screen.png');
+    background-position: center top;
+    background-size: cover;
+    
+}
+
+.fire{
+    background-image: url('../images/map_fire_screen.png');
+    background-position: center top;
+    background-size: cover;
+
+}
+
+.terror{
+    background-image: url('../images/map_terr_screen.png');
+    background-position: center top;
+    background-size: cover;
+
+}
+
+.corona{
+    background-image: url('../images/map_coro_screen.png');
+    background-position: center top;
+    background-size: cover;
+
 }
