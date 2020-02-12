@@ -30,15 +30,21 @@ p{
 .containerItem {
     height: 1080px;
     width: 100%;
-    text-align: center;
+    text-align: justify;
 }
 .topic{
-    background-color: white;
-    background-position: center top;
+    background: url('../images/map_screen.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
     background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment:fixed;
+    animation: animatedBackground 20s linear infinite alternate;
 }
+
+.top{
+    font-size: 200px;
+}
+
 .institutions{
     background: url('../images/map_inst_screen.png');
     -webkit-background-size: cover;
