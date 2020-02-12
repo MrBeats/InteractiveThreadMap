@@ -17,11 +17,20 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
          this.flyToLatLon = this.flyToLatLon.bind(this);
 
          this.state = {
-            map: null
+             map: null,
+             InstMapMove: () => {},
+             FireMapMove: () => {},
+             TerrorMapMove: () => {},
+             CoronaMapMove: () => {},
+
+             InstCanvas: null,
+             FireCanvas: null,
+             TerrorCanvas: null,
+             CoronaCanvas: null,
          }
      }
 
-     componentDidMount() {
+     async componentDidMount() {
          mapboxgl.accessToken = 'pk.eyJ1IjoiZW5qYWxvdCIsImEiOiJjaWhtdmxhNTIwb25zdHBsejk0NGdhODJhIn0.2-F2hS_oTZenAWc0BMf_uw'
          this.setState({
              map: new mapboxgl.Map({
@@ -30,8 +39,8 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
                  center: [-10, 30],
                  zoom: 2,
              })
-         },() => {
-             this.createMap()
+         },async () => {
+             await this.createMap()
          })
 
      }
@@ -43,6 +52,29 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
              essential: true,
              zoom: 9
          });
+     }
+
+     changeCanvasVisibility(canvas,layer) {
+         console.log(canvas,layer)
+         if(canvas){
+             if(canvas.style("display") != "none") {
+                 canvas.style("display", "none")
+                 if (layer === "Institute") {
+                     const {map} = this.state
+                     map.off("viewreset", this.state.InstMapMove)
+                     map.off("move", this.state.InstMapMove)
+                 }
+             } else {
+                 canvas.attr("style","null")
+                 canvas.style("display", "null")
+                 if (layer === "Institute") {
+                     const {map} = this.state
+                     map.on("viewreset", this.state.InstMapMove)
+                     map.on("move", this.state.InstMapMove)
+                     this.state.InstMapMove()
+                 }
+             }
+         }
      }
 
      async createMap() {
@@ -61,45 +93,41 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
          let TerrorData = await Terror.readTerrorData()
          let CoronaWorldData = await Corona.readCoronaWorldData()
          let CountryCodes = await Corona.readCountryCodesData()
-            console.log(InstitutionData)
-            console.log(FireData)
-            console.log(TerrorData)
-            console.log(CoronaWorldData)
-            console.log(CountryCodes)
 
          // Create Institution Canvas ---------------------------------------------------------------------------------
-         let InstitutionCanvas = d3.select(container).append("canvas")
-             .attr('width', 1400)
-             .attr('height', 800)
-         let InstitutionContext = InstitutionCanvas.node().getContext('2d')
+         this.setState({InstCanvas: d3.select(container).append("canvas").attr('width', 1400).attr('height', 800)}, () => {
+             let InstitutionContext = this.state.InstCanvas.node().getContext('2d')
+             let div = d3.select("body").append("div")
+                 .attr("class", "tooltip")
+                 .style("opacity", 0)
 
-         let div = d3.select("body").append("div")
-             .attr("class", "tooltip")
-             .style("opacity", 0)
+             this.setState({InstMapMove: () => Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext)}, () => {
+                 map.on("viewreset", this.state.InstMapMove)
+                 map.on("move", this.state.InstMapMove)
+             })
 
-         map.on("viewreset", () => Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext))
-         map.on("move", () => Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext))
+             map.on('mousemove', function(e) {
+                 let institutionsUnderMouse = Institutions.checkIfExists(e,InstitutionData,map)
+                 if (institutionsUnderMouse !== false) {
+                     div.transition()
+                         .duration(200)
+                         .style("opacity", .9)
+                     let htmlString = ""
 
-         map.on('mousemove', function(e) {
-             let institutionsUnderMouse = Institutions.checkIfExists(e,InstitutionData,map)
-             if (institutionsUnderMouse !== false) {
-                 div.transition()
-                     .duration(200)
-                     .style("opacity", .9)
-                 let htmlString = ""
+                     institutionsUnderMouse.forEach(inst => htmlString += inst.name + "<br/>" + inst.Adresse + "<br/><br/>")
 
-                 institutionsUnderMouse.forEach(inst => htmlString += inst.name + "<br/>" + inst.Adresse + "<br/><br/>")
-
-                 div.html(htmlString)
-                     .style("left", (e.point.x + 350) + "px")
-                     .style("top", (e.point.y - 28) + "px")
-                     .style("height", (institutionsUnderMouse.length * 65) + "px")
-             }
-             else {
-                 div.transition()
-                     .duration(500)
-                     .style("opacity", 0);
-             }
+                     div.html(htmlString)
+                         .style("left", (e.point.x + 350) + "px")
+                         .style("top", (e.point.y - 28) + "px")
+                         .style("height", (institutionsUnderMouse.length * 65) + "px")
+                 }
+                 else {
+                     div.transition()
+                         .duration(500)
+                         .style("opacity", 0);
+                 }
+             })
+             Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext)
          })
          // Create Fire Canvas ----------------------------------------------------------------------------------------
          let FireCanvas = d3.select(container).append("canvas")
@@ -122,15 +150,16 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
          // Do First Data Update --------------------------------------------------------------------------------------
          //Fire.updateFire(FireData,map,div,FireContext)
          //Terror.updateTerror(TerrorData,map,div,TerrorContext)
-         Institutions.updateInstitutions(InstitutionData,map,div,InstitutionContext)
+
          //Corona.updateCorona(CoronaWorldData,map)
     }
 
      render() {
-         const {map} = this.state
+         const {map,InstCanvas} = this.state
         return (
             <div>
                 <InstitutionFocusBar flyTo={this.flyToLatLon}/>
+                <input id="input2" type="checkbox" name="InstituteToggle" value="Institute" defaultChecked={InstCanvas?InstCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(InstCanvas,"Institute")} />
                 <div id="map" ref="karte" style={{
                     position: 'absolute',
                     top: 0,

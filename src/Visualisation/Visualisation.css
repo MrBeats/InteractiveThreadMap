@@ -23,3 +23,9 @@ div.tooltip {
 #map canvas {
     cursor: crosshair;
 }
+#input2{
+    position: absolute;
+    top: 100px;
+    left: 100px;
+}
+
