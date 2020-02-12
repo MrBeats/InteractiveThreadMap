@@ -131,7 +131,7 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
          // Create Institution Canvas ---------------------------------------------------------------------------------
          this.setState({InstCanvas: d3.select(container).append("canvas").attr('width', 1400).attr('height', 800)}, () => {
              let InstitutionContext = this.state.InstCanvas.node().getContext('2d')
-             let div = d3.select("body").append("div")
+             let div = d3.select("#map").append("div")
                  .attr("class", "tooltip")
                  .style("opacity", 0)
 
@@ -151,7 +151,7 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
                      institutionsUnderMouse.forEach(inst => htmlString += inst.name + "<br/>" + inst.Adresse + "<br/><br/>")
 
                      div.html(htmlString)
-                         .style("left", (e.point.x + 150) + "px")
+                         .style("left", (e.point.x + 50) + "px")
                          .style("top", (e.point.y - 28) + "px")
                          .style("height", (institutionsUnderMouse.length * 65) + "px")
                  }
