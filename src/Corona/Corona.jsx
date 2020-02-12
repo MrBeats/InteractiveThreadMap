@@ -42,7 +42,8 @@ export function updateCorona(coronaData, map){
         'type': 'fill',
         'paint': {
           'fill-color': '#52489C', //this is the color you want your tileset to have (I used a nice purple color)
-          'fill-outline-color': '#F2F2F2' //this helps us distinguish individual countries a bit better by giving them an outline
+          'fill-outline-color': '#F2F2F2', //this helps us distinguish individual countries a bit better by giving them an outline
+            'fill-opacity': 0.3
         }
       }),
       map.setFilter('corona', ['in', 'ADM0_A3_IS'].concat(getCol(coronaData, 'ISO3')))

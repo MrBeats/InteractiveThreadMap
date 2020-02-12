@@ -34,8 +34,8 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
              map: new mapboxgl.Map({
                  container: 'map', // container id
                  style: 'mapbox://styles/enjalot/cihmvv7kg004v91kn22zjptsc',
-                 center: [-10, 30],
-                 zoom: 2,
+                 center: [10, 52],
+                 zoom: 5.3,
              })
          },async () => {
              await this.createMap()
