@@ -50,7 +50,10 @@ class Page extends React.PureComponent {
                 <Waypoint onEnter={this.changeBackground.bind(this,"Institutions")} />
                 <div className={"containerItem"}>
                     <h1>Institutions</h1>
-                    <p>Beschreibung</p>
+                    <br />
+                    <br />
+                    <p><strong>Mit weit &uuml;ber 6000 Partner-Instituten ist die <a href="https://www.dfg.de/">DFG</a> international sehr <br />breit aufgestellt. Aufgrund ihrer geographischen Lage sind die Institute<br /> verschiedensten Gefahren ausgesetzt. Um einen sicheren Forschungsstandort zu finden,<br /> ist es vorteilhaft sich vorab &uuml;ber bestehende Risiken zu informieren.</strong></p>
+                    <p><strong>Die Daten f&uuml;r die Visualierung stammen dabei aus dem zur Verf&uuml;gung gestellten <a href="https://gepris.dfg.de/gepris/OCTOPUS">GEPRIS</a> Datensatz des DFG.</strong></p>
                 </div>
                 <Waypoint onEnter={this.changeBackground.bind(this,"Fire")} />
                 <div className={"containerItem"}>
@@ -77,7 +80,7 @@ class Page extends React.PureComponent {
                     <br />
                     <br />
                     <br />
-                    <p><strong>Der <span style={{color: '#0000ff'}}>Corona</span> Virus (2019-nCoV) ist wohl die neueste und aktuellste Gefahr.<br /> Der erstmals in China aufgetretene Virus der Familie der&nbsp;<em>Coronaviridae&nbsp;</em>hat allein in<br /> China bereits mehrere zehntausend Menschen infiziert und schon &uuml;ber<br /> tausend Todesopfer gefordert (<a href="https://www.who.int/docs/default-source/coronaviruse/situation-reports/20200212-sitrep-23-ncov.pdf?sfvrsn=41e9fb78_2">Stand Februar 2020</a>). Auch wenn au&szlig;erhalb Chinas noch<br /> nicht viele F&auml;lle bekannt sind, stellt dieser Virus eine Gefahr f&uuml;r die Institute<br /> und Ihre Mitarbeiter dar. Unsere Daten werden dabei aus einer unabh&auml;ngigen und regelm&auml;&szlig;ig<br /> aktualisierten <a href="https://github.com/globalcitizen/2019-wuhan-coronavirus-data">Quelle</a> bezogen und enthalten neben den Zahlen auch die Herkunft s&auml;mtlicher Daten.</strong></p>
+                    <p><strong>Der <span style={{color: '#7c73bf'}}>Corona</span> Virus (2019-nCoV) ist wohl die neueste und aktuellste Gefahr.<br /> Der erstmals in China aufgetretene Virus der Familie der&nbsp;<em>Coronaviridae&nbsp;</em>hat allein in<br /> China bereits mehrere zehntausend Menschen infiziert und schon &uuml;ber<br /> tausend Todesopfer gefordert (<a href="https://www.who.int/docs/default-source/coronaviruse/situation-reports/20200212-sitrep-23-ncov.pdf?sfvrsn=41e9fb78_2">Stand Februar 2020</a>). Auch wenn au&szlig;erhalb Chinas noch<br /> nicht viele F&auml;lle bekannt sind, stellt dieser Virus eine Gefahr f&uuml;r die Institute<br /> und Ihre Mitarbeiter dar. Unsere Daten werden dabei aus einer unabh&auml;ngigen und regelm&auml;&szlig;ig<br /> aktualisierten <a href="https://github.com/globalcitizen/2019-wuhan-coronavirus-data">Quelle</a> bezogen und enthalten neben den Zahlen auch die Herkunft s&auml;mtlicher Daten.</strong></p>
                 </div>
                 <Waypoint onEnter={this.changeBackground.bind(this,"Map")} />
                 <div className={"containerItem"}>
