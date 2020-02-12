@@ -199,15 +199,15 @@ import InstitutionFocusBar from "../InstitutionFocusBar/InstitutionFocusBar";
                 </div>
                 <div id='boxes'>
                     <label id='toggleFire'>
-                        Show fire data
+                    <span style={{color: '#ff0000'}}>Show fire data</span>
                         <input type="checkbox" defaultChecked={FireCanvas?FireCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(FireCanvas,"Fire")} />
                     </label>
                     <label id='toggleTerror'>
-                        Show terror data
+                    <span style={{color: '#339966'}}>Show terror data</span>
                         <input type="checkbox" defaultChecked={TerrorCanvas?TerrorCanvas.style("display") != "none":true} onChange={() => this.changeCanvasVisibility(TerrorCanvas,"Terror")} />
                     </label>
                     <label id='toggleCorona'>
-                        Show corona data
+                    <span style={{color: '#7c73bf'}}>Show corona data</span>
                         <input type="checkbox" defaultChecked={map?map.getLayoutProperty("corona","visibility") == "visible":true} onChange={() => this.mapLayerToggle("Corona")} />
                     </label>
                 </div>
