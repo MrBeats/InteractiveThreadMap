@@ -8,10 +8,6 @@ export async function readCoronaWorldData() {
     let data = await d3.dsv("|", coronaWorldData)
     let codes = await d3.dsv("|", countryCodesData)
     let iso = await d3.dsv(",", ISO)
-    console.log('Compute')
-    //console.log(data)
-    //console.log(codes)
-    //console.log(iso)
 
     data.forEach(d => {
         const filtered = iso.filter(i => i.name === d.place)[0]
@@ -37,7 +33,7 @@ function getCol(matrix, col){
 
 export function updateCorona(coronaData, map){
     return (map.addLayer({ //here we are adding a layer containing the tileset we just uploaded
-        'id': 'countries',
+        'id': 'corona',
         'source': {
           'type': 'vector',
           'url': 'mapbox://byfrost-articles.74qv0xp0'
