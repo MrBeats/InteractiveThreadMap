@@ -1,0 +1,86 @@
+h1{
+    text-align: center;
+    color: black;
+    margin: 0px
+}
+
+p{
+    text-align: center;
+    color: black;
+}
+#container {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    height: 100%;
+    line-height: 1.5;
+}
+#header {
+    min-width: 110%;
+    min-height: 110%;
+     margin: 0;
+     padding: 0;
+     position: fixed;
+     top: 0;
+     left: 0;
+     line-height: 1.5;
+ }
+.containerItem {
+    height: 800px;
+    width: 100%;
+    text-align: center;
+}
+.topic{
+    background-color: white;
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+}
+.institutions{
+    background: url('../images/map_inst_screen.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    animation: animatedBackground 20s linear infinite alternate;
+}
+
+.fire{
+    background: url('../images/map_fire_screen.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    animation: animatedBackground 20s linear infinite alternate;
+}
+
+.terror{
+    background-image: url('../images/map_terr_screen.png');
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    animation: animatedBackground 20s linear infinite alternate;
+}
+
+.corona{
+    background-image: url('../images/map_coro_screen.png');
+    background-position: center top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    animation: animatedBackground 20s linear infinite alternate;
+}
+@keyframes animatedBackground {
+    from {
+        background-position: 0 0;
+        background-size: 100%;
+    }
+    to {
+        background-position: 100% 0;
+        background-size: 130%;
+    }
+}

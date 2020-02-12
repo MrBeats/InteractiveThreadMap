@@ -12,7 +12,9 @@
     "react-dom": "^16.12.0",
     "react-geocode": "^0.2.1",
     "react-scripts": "3.3.1",
-    "topojson": "^3.0.2"
+    "react-waypoint": "^9.0.2",
+    "topojson": "^3.0.2",
+    "waypoints": "^4.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
