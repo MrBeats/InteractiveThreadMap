@@ -23,3 +23,24 @@ div.tooltip {
 #map canvas {
     cursor: crosshair;
 }
+#toggleInst{
+    position: absolute;
+    top: 100px;
+    left: 100px;
+}
+#toggleFire{
+    position: absolute;
+    top: 130px;
+    left: 100px;
+}
+#toggleTerror{
+    position: absolute;
+    top: 160px;
+    left: 100px;
+}
+#toggleCorona{
+    position: absolute;
+    top: 190px;
+    left: 100px;
+}
+
