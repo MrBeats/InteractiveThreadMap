@@ -1,0 +1,32 @@
+{
+  "files": {
+    "main.css": "/InteractiveThreatMap/static/css/main.c7e5363d.chunk.css",
+    "main.js": "/InteractiveThreatMap/static/js/main.c3defb1b.chunk.js",
+    "main.js.map": "/InteractiveThreatMap/static/js/main.c3defb1b.chunk.js.map",
+    "runtime-main.js": "/InteractiveThreatMap/static/js/runtime-main.7e27f026.js",
+    "runtime-main.js.map": "/InteractiveThreatMap/static/js/runtime-main.7e27f026.js.map",
+    "static/css/2.7efaf445.chunk.css": "/InteractiveThreatMap/static/css/2.7efaf445.chunk.css",
+    "static/js/2.16c5861f.chunk.js": "/InteractiveThreatMap/static/js/2.16c5861f.chunk.js",
+    "static/js/2.16c5861f.chunk.js.map": "/InteractiveThreatMap/static/js/2.16c5861f.chunk.js.map",
+    "index.html": "/InteractiveThreatMap/index.html",
+    "precache-manifest.af738a5f077cecbf6626ce6b6f532106.js": "/InteractiveThreatMap/precache-manifest.af738a5f077cecbf6626ce6b6f532106.js",
+    "service-worker.js": "/InteractiveThreatMap/service-worker.js",
+    "static/css/2.7efaf445.chunk.css.map": "/InteractiveThreatMap/static/css/2.7efaf445.chunk.css.map",
+    "static/css/main.c7e5363d.chunk.css.map": "/InteractiveThreatMap/static/css/main.c7e5363d.chunk.css.map",
+    "static/js/2.16c5861f.chunk.js.LICENSE.txt": "/InteractiveThreatMap/static/js/2.16c5861f.chunk.js.LICENSE.txt",
+    "static/media/20200204-205200-bno-2019ncov-data.csv": "/InteractiveThreatMap/static/media/20200204-205200-bno-2019ncov-data.42bb2e17.csv",
+    "static/media/Feuer.csv": "/InteractiveThreatMap/static/media/Feuer.450f8575.csv",
+    "static/media/InstitutionData_Ext.csv": "/InteractiveThreatMap/static/media/InstitutionData_Ext.34fc1e76.csv",
+    "static/media/country-codes.csv": "/InteractiveThreatMap/static/media/country-codes.962d8880.csv",
+    "static/media/globalterrorismdb_0919dist.csv": "/InteractiveThreatMap/static/media/globalterrorismdb_0919dist.abf417b4.csv",
+    "static/media/Page.css": "/InteractiveThreatMap/static/media/map_terr_screen.1a959834.png",
+    "static/media/world.csv": "/InteractiveThreatMap/static/media/world.e8b88829.csv"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7e27f026.js",
+    "static/css/2.7efaf445.chunk.css",
+    "static/js/2.16c5861f.chunk.js",
+    "static/css/main.c7e5363d.chunk.css",
+    "static/js/main.c3defb1b.chunk.js"
+  ]
+}
