@@ -14,14 +14,22 @@ Dieses Projekt wurde im Rahmen des Moduls Datenvisualisierung für das Studium I
 <a name="desc"></a>
 ## Beschreibung
 
+
 <a name="installation"></a>
 ## Installation
+
+Die Visualisierung ist online unter folgendem Link erreichbar: https://mrbeats.github.io/InteractiveThreadMap/
+
+Für eine manuelle Installation, installieren Sie npm und nodejs. Anschließend führen Sie im Projektverzeichnis erst `npm install` und anschließend `npm start` aus. Die Visualisierung ist anschließend über localhost:3000 erreichbar. Für genaue Informationen lesen Sie an Ende dieser Datei die direkte Beschreibung von [React](#react).
 
 <a name="man"></a>
 ## Manual
 
+Zur Veranschaulichung und Erklärung des Funktionsumfangs und der Funktionsweise schauen Sie sich bitte das Video im /screencast - Verzeichnis an.
+
 <a name="aut"></a>
 ## Autoren:
+
 - Jamie Schenker ()
 - Marvin Schendel ()
 
@@ -32,10 +40,11 @@ Data derived from original data provided by https://gepris.dfg.de (c) Deutsche F
 
 
 
-
-
 ------------------------------------------------------------------
 
+
+<a name="react"></a>
+## React
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
