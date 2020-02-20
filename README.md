@@ -1,3 +1,42 @@
+# Projekt: Interactive threat map
+
+### Kurzbeschreibung
+
+Dieses Projekt wurde im Rahmen des Moduls Datenvisualisierung für das Studium Informatik an der Freien Universität Berlin erstellt. Ziel dieses Projektes ist es, eine interaktive Karte mit den aktuellsten und größten Gefahren für alle aktuellen partner-Institute des DFG zu entwickeln.
+
+## Inhaltsverzeichnis
+1. [Beschreibung](#desc)
+2. [Installation](#installation)
+3. [Manual](#man)
+4. [Autoren](#aut)
+5. [Copyright](#cop)
+
+<a name="desc"></a>
+## Beschreibung
+
+<a name="installation"></a>
+## Installation
+
+<a name="man"></a>
+## Manual
+
+<a name="aut"></a>
+## Autoren:
+- Jamie Schenker ()
+- Marvin Schendel ()
+
+<a name="cop"></a>
+## Copyright
+
+Data derived from original data provided by https://gepris.dfg.de (c) Deutsche Forschungsgemeinschaft
+
+
+
+
+
+------------------------------------------------------------------
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
