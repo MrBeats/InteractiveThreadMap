@@ -31,8 +31,8 @@ Zur Veranschaulichung und Erklärung des Funktionsumfangs und der Funktionsweise
 <a name="aut"></a>
 ## Autoren:
 
-- Jamie Schenker ()
-- Marvin Schendel ()
+- Jamie Schenker (https://github.com/xXPOLYGONXx)
+- Marvin Schendel (https://github.com/MrBeats)
 
 <a name="cop"></a>
 ## Copyright
