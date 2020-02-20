@@ -14,6 +14,7 @@ Dieses Projekt wurde im Rahmen des Moduls Datenvisualisierung für das Studium I
 <a name="desc"></a>
 ## Beschreibung
 
+Ziel dieser Visualisierung ist die Darstellung von verschiedenen Gefahren, welche bei sämtlichen Partner-Instituten des DFG auftreten oder aufgetreten sind. Die Visualisierung richtet sich dabei an Studenten die an einem Projekt an einem bestimmten Ort mitarbeiten wollen oder Forscher, die an einem Partner-Institut ein Projekt starten möchten, um sich vorab über dortige Gefahren informieren zu können. Der erste Datensatz befasst sich mit der Gefahr des Feuers.
 
 <a name="installation"></a>
 ## Installation
