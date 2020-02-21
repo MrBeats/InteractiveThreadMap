@@ -6,10 +6,11 @@ Dieses Projekt wurde im Rahmen des Moduls Datenvisualisierung für das Studium I
 
 ## Inhaltsverzeichnis
 1. [Beschreibung](#desc)
-2. [Installation](#installation)
-3. [Manual](#man)
-4. [Autoren](#aut)
-5. [Copyright](#cop)
+2. [Interview](#interv)
+3. [Installation](#installation)
+4. [Manual](#man)
+5. [Autoren](#aut)
+6. [Copyright](#cop)
 
 <a name="desc"></a>
 ## Beschreibung
@@ -26,6 +27,28 @@ Bei den Interaktionen haben wir uns für insgesamt 4 Möglichkeiten entschieden.
 
 Bei der technischen Umsetzung haben wir uns neben d3js für eine React-Anwendung entschieden. Dies bietet uns den Vorteil einer technischen Architektur, welche aufgrund der Modularität ein gekapseltes Arbeiten mit den verschiedenen Datensätzen und den verschiedenen Teilen der Website ermöglicht.. Die Darstellung der Karte haben wir dabei mit Mapbox-GL realisiert. Das größte Problem bei der Umsetzung stellte die Performance dar. Mit ca. 600.000 Feuern, 180.000 terroristischen Anschlägen, 6000 Instituten und 28 infizierten Ländern, hatten wir beim Rendern der Seite teilweise sehr lange Ladezeiten. Daher sind wir während der Implementierung schnell von SVGs auf Canvases umgestiegen, bei welchen die Elemente nicht als HTML Element angelegt, sondern nur noch gezeichnet werden. Dies bedeutet aber auch im Umkehrschluss, das um MouseOver-Effekt verwenden zu können, die Position der Datenpunkte auf dem Bildschirm immer neu berechnet werden muss. Zur weiteren Optimierung stellen wir Datenpunkte nicht als Kreise, sondern als Rechtecke auf der Karte dar, da sich diese schneller und mit weniger Rechenaufwand zeichnen lassen. Die größten Leistungsverbesserungen erreichten wir aber durch die dynamische Filterung der Daten, die sich derzeit nicht auf dem angezeigten Ausschnitt der Karte befinden. Trotz all dieser Optimierungen stellt die Performance jedoch noch immer ein Problem dar. Aus diesem Grund wollten wir die Visualisierung eventuell noch mit WebGL Shadern auf der GPU optimieren, was aus zeitlichen Gründen jedoch leider nicht mehr umgesetzt werden konnte.
 
+<a name="interv"></a>
+## Interview
+
+**Nachdem du dir nun einmal alleine die gesamte Website angesehen hast, wie findest du dich zurecht?**
+
+Naja grundsätzlich finde ich erstmal, dass die Seite gut strukturiert ist. Ich finde es gut, dass Ihr am Anfang auch noch in das Thema einleitet und erklärt, wo die Datensätze herkommen. Gut finde ich auch, dass man im Hintergrund bei jeder Einführung einmal eine Übersicht über den Datensatz sehen kann. Ansonsten ist die Seite relativ schlicht.
+
+**Wo du gerade die Einführung in die Datensätze erwähnt hast, kannst du da jetzt sagen, dass du gut über die Daten und das Projekt informiert wurdest?**
+
+Im wesentliche ja. Wie ich eben schon erwähnt hab, bin ich mit der Einführung so erstmal zufrieden. Allerdings habe ich auch noch ein paar Kritikpunkte. Ihr habt bei der Einführung in den Feuer-Datensatz z.B. geschrieben, dass die Daten der letzten 24h, 48h und 7 Tagen zur Verfügung stehen. Ich konnte leider nirgendwo finden, welche der Daten ihr jetzt eigentlich verwendet habt. Auch bei den Terror-Daten war es ein wenig verwirrend, dass alle Daten seit 1970 zur Verfügung standen. Habt Ihr denn alle Daten angezeigt, oder nur einen bestimmten Bereich?
+
+**Geplant war es ja, dass die Daten ja in Echtzeit über eine API von den entsprechenden Servern abgerufen werden. Denkst du, dass damit deine Kritikpunkte gelöst werden würden?**
+
+Also wenn ihr das dann mit in die Einführung in die Datensätze geschrieben hättet, würde es die Unklarheiten auf jeden Fall beseitigen. Daten in Echtzeit wären sogar echt cool gewesen, denn damit hätte ich mich immer gut über den neuesten Stand informieren können.
+
+**Danke für deine ehrliche Meinung. Noch eine letzte Frage: Was sagst du zur eigentlichen Visualisierung? Was ist deine Meinung zu den Filtermöglichkeiten?**
+
+Gerne. Erstmal finde ich die Idee, alles auf einer Karte anzuzeigen, sehr gut. Das hat mir echt einen guten Überblick gegeben. Ich fand es auch sehr interessant, mal ein wenig aus der Karte zu zoomen und mir mal einen großen Ausschnitt der Welt anzusehen. Ich hätte zum Beispiel niemals gedacht, dass es so viele große Brände aktuell auf der Welt gibt. Das sieht fast so aus, als ob die halbe Welt brennt. Das hat mich echt fasziniert. Auch vom Grunddesign finde ich den Teil mit der Karte sehr übersichtlich. Die Filter-Möglichkeiten haben mir auch völlig ausgereicht. Soweit ich das verstanden habe ging es ja darum, sich einen allgemeinen Überblick zu verschaffen. Eine Sache muss ich allerdings noch sagen. Hätte ich bei der Erklärung der Institute nicht im Hintergrund gesehen, dass die Punkte alle schwarz sind, hätte ich nicht gewusst, dass die schwarzen Punkte die Institute sind. Alle anderen Datensätze waren ja über der Karte durch die Filter in der Farbe nochmal angegeben. Vielleicht hättet Ihr da die Institute auch noch einmal hinschreiben können. Ansonsten lädt die Karte ein wenig lange, aber das hat ja damit erstmal nichts zu tun.
+
+**Dann vielen Dank für das Interview und deine Zeit.**
+
+Gerne und kein Problem.
 
 
 <a name="installation"></a>
