@@ -35,6 +35,7 @@ Die Visualisierung ist online unter folgendem Link erreichbar: https://mrbeats.g
 
 Für eine manuelle Installation, installieren Sie npm und nodejs. Anschließend führen Sie im Projektverzeichnis erst `npm install` und anschließend `npm start` aus. Die Visualisierung ist anschließend über localhost:3000 erreichbar. Für genaue Informationen lesen Sie an Ende dieser Datei die direkte Beschreibung von [React](#react).
 
+Achtung: Die Anwendung ist nur für eine Auflösung von 1920 x 1080 ausgelegt!
 <a name="man"></a>
 ## Manual
 
